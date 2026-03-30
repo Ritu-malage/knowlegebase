@@ -12,3 +12,4 @@ This serves as a continuously evolving knowledge base. The topics covered can be
 |No.|Topics|
 |---|---|
 |1| [MLFlow](./mlflow/README.md) |
+|2| [LangGraph](./genAI/langgraph/README.md) |
