@@ -1,0 +1,17 @@
+project:
+  output-dir: docs
+
+format:
+  docusaurus-md:
+    code-fold: false
+    wrap: preserve
+    toc: true
+    keep-md: true
+    output-ext: md
+
+execute:
+  enabled: false
+  warning: false
+  message: false
+
+jupyter: python3
