@@ -30,7 +30,7 @@ cd site
 npm start
 ```
 
-This starts the local Docusaurus server for preview.
+- This starts the local Docusaurus server for preview.
 
 ### 3) Build docs
 
@@ -59,3 +59,5 @@ In your repository settings:
 
 
 > NOTE: This repository is maintained as a personal knowledge base and will continue to evolve as I learn and explore new areas.
+
+

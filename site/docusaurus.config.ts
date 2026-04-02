@@ -8,7 +8,7 @@ import path from 'path';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'knowlegebase',
+  title: 'Knowlegebase',
   tagline: 'Notes, notebooks, and practical guides',
   favicon: 'img/favicon.ico',
 

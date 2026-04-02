@@ -1,11 +1,114 @@
 .features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
+  padding: 5rem 0 6rem;
   width: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(238, 167, 97, 0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(41, 128, 185, 0.14), transparent 30%),
+    linear-gradient(180deg, rgba(255, 250, 244, 0.9), rgba(255, 255, 255, 0.98));
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.sectionIntro {
+  max-width: 760px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.kicker {
+  margin-bottom: 0.75rem;
+  color: #b45309;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sectionLead {
+  color: #475569;
+  font-size: 1.05rem;
+}
+
+.featureColumn {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.featureCard {
+  width: 100%;
+  padding: 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.description {
+  color: #475569;
+  min-height: 4.5rem;
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(15, 118, 110, 0.35);
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.12);
+}
+
+.cardMeta {
+  margin-bottom: 0.5rem;
+  color: #0f766e;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cardTitle {
+  margin-bottom: 0.65rem;
+}
+
+.communityNote {
+  margin-top: 3rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, #102a43, #1f4e5f);
+  color: #f8fafc;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+}
+
+.communityLabel {
+  margin-bottom: 0.5rem;
+  color: #fbd38d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.communityText {
+  margin-bottom: 0;
+  color: rgba(248, 250, 252, 0.88);
+}
+
+@media screen and (max-width: 996px) {
+  .features {
+    padding: 4rem 0;
+  }
+
+  .description {
+    min-height: auto;
+  }
+
+  .communityNote {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
