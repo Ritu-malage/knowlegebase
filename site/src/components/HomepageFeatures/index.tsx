@@ -12,16 +12,16 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'AI / ML',
-    description:
-      'Notes and references across artificial intelligence, machine learning, and related areas.',
-    to: '/docs/AI_ML/',
-  },
-  {
     title: 'MLFlow',
     description:
       'Practical notes on tracking, UI, logging, models, projects, registry, deployment, and implementation.',
-    to: '/docs/AI_ML/mlflow/',
+    to: '/docs/ML/mlflow/',
+  },
+  {
+    title: 'LangGraph',
+    description:
+      'Comprehensive notes on using LangGraph for Retrieval-Augmented Generation (RAG), chatbot development, and practical implementation strategies.',
+    to: '/docs/gen_AI/langgraph/',
   },
 ];
 
