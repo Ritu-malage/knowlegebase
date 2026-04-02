@@ -1,6 +1,3 @@
-# MLFlow Implementation
-
-```python
 import pandas as pd
 import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
@@ -54,4 +51,3 @@ if __name__ == "__main__":
         mlflow.log_metric("r2", r2)
         mlflow.log_metric("mae", mae)
         mlflow.sklearn.log_model(lr, "mymodel")
-```
