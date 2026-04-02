@@ -120,9 +120,10 @@ const config: Config = {
               docId.split('/').includes('md_utils');
             const normalizeSidebarLabel = (label: string): string =>
               label.toLowerCase().replace(/[\s_-]+/g, '');
+            const hiddenCategoryLabels = new Set(['mdutils', 'practicals']);
             const isHiddenCategory = (item: any): boolean =>
               item?.type === 'category' &&
-              normalizeSidebarLabel(String(item?.label ?? '')) === 'mdutils';
+              hiddenCategoryLabels.has(normalizeSidebarLabel(String(item?.label ?? '')));
 
             const docById = new Map(args.docs.map((d: any) => [d.id, d]));
             const sourceAbsPathToDocId = new Map(

@@ -1,5 +1,12 @@
+---
+title: ChatBot Implementation
+---
 # Simple ChatBot using Streamlit
 
+## Codebase
+- [CLICK HERE](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/chatbot) to access the codebase
+
+## Steps to run the chatbot
 - Simple chatbot with no memory
 ```bash
 streamlit run frontend.py
