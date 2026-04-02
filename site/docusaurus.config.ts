@@ -7,6 +7,75 @@ import path from 'path';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+const siteRoot = __dirname;
+const repoRoot = path.resolve(siteRoot, '..');
+const githubSourceBranch = 'main';
+const githubRepoBaseUrl = 'https://github.com/Ritu-malage/knowlegebase';
+const notebookGitHubPreviewPaths = new Set([
+  'site/docs/AI_ML/langgraph/practicals/practice1.ipynb',
+]);
+
+function normalizePathForUrl(filePath: string): string {
+  return filePath.split(path.sep).join('/');
+}
+
+function toGitHubBlobUrl(absolutePath: string): string | null {
+  const relativePath = path.relative(repoRoot, absolutePath);
+  if (relativePath.startsWith('..')) {
+    return null;
+  }
+
+  return `${githubRepoBaseUrl}/blob/${githubSourceBranch}/${normalizePathForUrl(relativePath)}`;
+}
+
+function shouldUseGitHubNotebookPreview(absolutePath: string): boolean {
+  const relativePath = path.relative(repoRoot, absolutePath);
+  if (relativePath.startsWith('..')) {
+    return false;
+  }
+
+  return notebookGitHubPreviewPaths.has(normalizePathForUrl(relativePath));
+}
+
+function isLocalNotebookPath(href: string): boolean {
+  return !href.startsWith('http://') && !href.startsWith('https://') && href.toLowerCase().endsWith('.ipynb');
+}
+
+function rewriteNotebookLinksToGitHub() {
+  return (tree: any, file: {path?: string}) => {
+    const currentFilePath = file?.path;
+    if (!currentFilePath) {
+      return;
+    }
+
+    const walk = (node: any) => {
+      if (!node || typeof node !== 'object') {
+        return;
+      }
+
+      if (node.type === 'link' && typeof node.url === 'string' && isLocalNotebookPath(node.url)) {
+        const [hrefWithoutHash, hash = ''] = node.url.split('#', 2);
+        const notebookAbsPath = path.resolve(path.dirname(currentFilePath), hrefWithoutHash);
+        if (!shouldUseGitHubNotebookPreview(notebookAbsPath)) {
+          return;
+        }
+        const githubUrl = toGitHubBlobUrl(notebookAbsPath);
+        if (githubUrl) {
+          node.url = hash ? `${githubUrl}#${hash}` : githubUrl;
+        }
+      }
+
+      if (Array.isArray(node.children)) {
+        for (const child of node.children) {
+          walk(child);
+        }
+      }
+    };
+
+    walk(tree);
+  };
+}
+
 const config: Config = {
   title: 'Knowlegebase',
   tagline: 'Notes, notebooks, and practical guides',
@@ -44,10 +113,10 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          remarkPlugins: [rewriteNotebookLinksToGitHub],
           sidebarItemsGenerator: async ({defaultSidebarItemsGenerator, ...args}) => {
             const items = await defaultSidebarItemsGenerator(args);
             const hiddenPrefix = 'AI_ML/mlflow/md_utils/';
-            const siteRoot = __dirname;
 
             const docById = new Map(args.docs.map((d: any) => [d.id, d]));
             const sourceAbsPathToDocId = new Map(
@@ -72,17 +141,16 @@ const config: Config = {
                 : path.join(siteRoot, sourceWithoutAlias);
             };
 
-            const tocDocIdsCache = new Map<string, string[]>();
+            const tocEntriesCache = new Map<string, Array<{label: string; href: string}>>();
 
-            // Extract ordered local `.md` links from a README's Table of Contents.
-            // Example TOC lines:
-            // - [Introduction](./md_utils/introduction.md)
-            const getTocDocIdsForReadmeDocId = (readmeDocId: string): string[] => {
-              if (tocDocIdsCache.has(readmeDocId)) return tocDocIdsCache.get(readmeDocId)!;
+            const getTocEntriesForReadmeDocId = (
+              readmeDocId: string,
+            ): Array<{label: string; href: string}> => {
+              if (tocEntriesCache.has(readmeDocId)) return tocEntriesCache.get(readmeDocId)!;
 
               const readmeAbsPath = resolveAbsPathFromDocId(readmeDocId);
               if (!readmeAbsPath) {
-                tocDocIdsCache.set(readmeDocId, []);
+                tocEntriesCache.set(readmeDocId, []);
                 return [];
               }
 
@@ -90,16 +158,17 @@ const config: Config = {
               try {
                 content = fs.readFileSync(readmeAbsPath, 'utf8');
               } catch {
-                tocDocIdsCache.set(readmeDocId, []);
+                tocEntriesCache.set(readmeDocId, []);
                 return [];
               }
 
-              const links: string[] = [];
-              const linkRegex = /(\!\[[^\]]*\]|\[[^\]]*\])\(([^)]+)\)/g;
+              const links: Array<{label: string; href: string}> = [];
+              const linkRegex = /(\!\[[^\]]*\]|\[([^\]]*)\])\(([^)]+)\)/g;
               let match: RegExpExecArray | null;
               while ((match = linkRegex.exec(content))) {
                 const full = match[1] ?? '';
-                const hrefRaw = (match[2] ?? '').trim();
+                const label = (match[2] ?? '').trim();
+                const hrefRaw = (match[3] ?? '').trim();
                 // Skip image links (e.g. ![alt](...))
                 if (full.startsWith('![')) continue;
 
@@ -114,26 +183,30 @@ const config: Config = {
                 ) {
                   continue;
                 }
-                if (!hrefNoAnchor.toLowerCase().endsWith('.md')) continue;
+                if (
+                  !hrefNoAnchor.toLowerCase().endsWith('.md') &&
+                  !hrefNoAnchor.toLowerCase().endsWith('.ipynb')
+                ) {
+                  continue;
+                }
 
-                links.push(hrefNoAnchor);
+                links.push({label, href: hrefNoAnchor});
               }
 
               const readmeDir = path.dirname(readmeAbsPath);
-              const orderedDocIds: string[] = [];
+              const orderedEntries: Array<{label: string; href: string}> = [];
               const seen = new Set<string>();
 
-              for (const href of links) {
-                const resolvedAbs = path.resolve(readmeDir, href);
-                const docId = sourceAbsPathToDocId.get(resolvedAbs);
-                if (!docId) continue;
-                if (seen.has(docId)) continue;
-                seen.add(docId);
-                orderedDocIds.push(docId);
+              for (const entry of links) {
+                const resolvedAbs = path.resolve(readmeDir, entry.href);
+                const key = normalizePathForUrl(resolvedAbs);
+                if (seen.has(key)) continue;
+                seen.add(key);
+                orderedEntries.push({...entry, href: resolvedAbs});
               }
 
-              tocDocIdsCache.set(readmeDocId, orderedDocIds);
-              return orderedDocIds;
+              tocEntriesCache.set(readmeDocId, orderedEntries);
+              return orderedEntries;
             };
 
             // Collect the subtree's sidebar nodes by:
@@ -170,15 +243,16 @@ const config: Config = {
                   : null;
               if (!readmeDocId) return categoryItem;
 
-              const tocDocIds = getTocDocIdsForReadmeDocId(readmeDocId);
-              if (tocDocIds.length === 0) return categoryItem;
+              const tocEntries = getTocEntriesForReadmeDocId(readmeDocId);
+              if (tocEntries.length === 0) return categoryItem;
 
               const {docIdToItem, categoryLinkIdToItem} = collectSidebarNodesByTargetId(
                 categoryItem.items ?? [],
               );
 
               const newItems: any[] = [];
-              for (const docId of tocDocIds) {
+              for (const entry of tocEntries) {
+                const docId = sourceAbsPathToDocId.get(entry.href);
                 const docItem = docIdToItem.get(docId);
                 if (docItem) {
                   // Docs not referenced by the TOC are intentionally dropped.
@@ -194,6 +268,21 @@ const config: Config = {
                 const linkedCategoryItem = categoryLinkIdToItem.get(docId);
                 if (linkedCategoryItem) {
                   newItems.push(processReadmeBackedCategory(linkedCategoryItem));
+                  continue;
+                }
+
+                if (entry.href.toLowerCase().endsWith('.ipynb')) {
+                  if (!shouldUseGitHubNotebookPreview(entry.href)) {
+                    continue;
+                  }
+                  const githubUrl = toGitHubBlobUrl(entry.href);
+                  if (githubUrl) {
+                    newItems.push({
+                      type: 'link',
+                      label: entry.label,
+                      href: githubUrl,
+                    });
+                  }
                 }
               }
 

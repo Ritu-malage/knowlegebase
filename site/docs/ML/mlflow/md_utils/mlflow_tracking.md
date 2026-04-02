@@ -274,4 +274,4 @@ with mlflow.start_run(run_name="run1", experiment_id=exp2.experiment_id):
 
 
 # Hands On
-- [MLFlow Tracking](../practicals/practice.md)
+- [MLFlow Tracking](../md_practicals/practice.md)

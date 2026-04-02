@@ -10,6 +10,11 @@ const SCRIPT_DIR = __dirname; // site/scripts
 const SITE_DIR = path.resolve(SCRIPT_DIR, '..');
 const REPO_ROOT = path.resolve(SITE_DIR, '..');
 const DOCS_ROOT = path.join(SITE_DIR, 'docs');
+const GITHUB_REPO_BASE_URL = 'https://github.com/Ritu-malage/knowlegebase';
+const GITHUB_SOURCE_BRANCH = 'main';
+const NOTEBOOK_GITHUB_PREVIEW_PATHS = new Set([
+  'site/docs/AI_ML/langgraph/practicals/practice1.ipynb',
+]);
 
 function isMarkdownFile(filePath) {
   return filePath.endsWith('.md');
@@ -29,18 +34,47 @@ async function walkFiles(dir) {
   return results;
 }
 
-function rewriteIpynbLinksToMd(markdown) {
-  // Rewrite only markdown link destinations like: [text](./path/notebook.ipynb)
-  // while preserving any anchors and relative prefixes.
+function normalizeForGitHubUrl(filePath) {
+  return filePath.split(path.sep).join('/');
+}
+
+function getGitHubBlobUrl(absolutePath) {
+  const relativePath = path.relative(REPO_ROOT, absolutePath);
+  if (relativePath.startsWith('..')) {
+    return null;
+  }
+
+  return `${GITHUB_REPO_BASE_URL}/blob/${GITHUB_SOURCE_BRANCH}/${normalizeForGitHubUrl(relativePath)}`;
+}
+
+function shouldUseGitHubNotebookPreview(absolutePath) {
+  const relativePath = path.relative(REPO_ROOT, absolutePath);
+  if (relativePath.startsWith('..')) {
+    return false;
+  }
+
+  return NOTEBOOK_GITHUB_PREVIEW_PATHS.has(normalizeForGitHubUrl(relativePath));
+}
+
+function rewriteIpynbLinksToGitHub(markdown, sourcePath) {
+  // Rewrite relative notebook links so they open the source notebook on GitHub.
   return markdown.replace(/\]\(([^)]+?)\.ipynb(\#[^)]+)?\)/g, (_match, dest, anchor) => {
-    const fixedAnchor = anchor ?? '';
-    // If it's a relative path, normalize accidental double slashes to keep links stable.
-    // (Avoid touching absolute URLs like `https://...`.)
-    let fixedDest = dest;
-    if (!fixedDest.includes('://')) {
-      fixedDest = fixedDest.replace(/\/{2,}/g, '/');
+    if (dest.includes('://') || dest.startsWith('/')) {
+      return _match;
     }
-    return `](${fixedDest}.md${fixedAnchor})`;
+
+    const fixedAnchor = anchor ?? '';
+    const notebookPath = path.resolve(path.dirname(sourcePath), `${dest}.ipynb`);
+    if (!shouldUseGitHubNotebookPreview(notebookPath)) {
+      return _match;
+    }
+    const githubUrl = getGitHubBlobUrl(notebookPath);
+
+    if (!githubUrl) {
+      return _match;
+    }
+
+    return `](${githubUrl}${fixedAnchor})`;
   });
 }
 
@@ -94,7 +128,7 @@ async function ensureParentDir(filePath) {
 async function copyAndRewrite({sourcePath, destinationPath}) {
   let content = await fs.readFile(sourcePath, 'utf8');
   const pyLinks = collectRelativePyLinks(content);
-  content = rewriteIpynbLinksToMd(content);
+  content = rewriteIpynbLinksToGitHub(content, sourcePath);
   content = rewritePyLinksToMd(content);
 
   await ensureParentDir(destinationPath);
@@ -208,4 +242,3 @@ main().catch((err) => {
   console.error(err);
   process.exitCode = 1;
 });
-

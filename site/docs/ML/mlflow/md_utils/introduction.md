@@ -88,16 +88,16 @@ particular – try to solve.
 
 Each MLflow component addresses a specific part of the ML lifecycle:
 
-1. **[MLflow Tracking](./2_mlflow_tracking.md)**  
+1. **[MLflow Tracking](./mlflow_tracking.md)**  
    - Log and compare experiments (parameters, metrics, artifacts, code
      versions, etc.).
-2. **[MLflow Projects](./3_mlflow_projects.md)**  
+2. **[MLflow Projects](./mlflow_projects.md)**  
    - Standardize how ML code, environments and entry points are defined
      so experiments are reproducible.
-3. **[MLflow Models](./4_mlflow_model.md)**  
+3. **[MLflow Models](./mlflow_model.md)**  
    - Package trained models in a standard format with multiple “flavors”
      so they can be served in different environments.
-4. **[MLflow Model Registry](./5_mlflow_registry.md)**  
+4. **[MLflow Model Registry](./mlflow_registry.md)**  
    - Central place to manage model versions and their lifecycle stages
      (e.g. Staging, Production, Archived).
 
