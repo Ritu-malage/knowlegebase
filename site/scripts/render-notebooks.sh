@@ -8,6 +8,11 @@ REPO_ROOT="$(cd "${SITE_DIR}/.." && pwd)"
 SOURCE_ROOT="${REPO_ROOT}/AI_ML"
 DOCS_ROOT="${SITE_DIR}/docs"
 
+if [[ "${ENABLE_NOTEBOOK_RENDERING:-0}" != "1" ]]; then
+  echo "Notebook rendering disabled. Set ENABLE_NOTEBOOK_RENDERING=1 to enable (ipynb -> md)."
+  exit 0
+fi
+
 if ! command -v quarto >/dev/null 2>&1; then
   echo "Quarto CLI is required. Install from https://quarto.org/docs/get-started/"
   exit 1

@@ -1,4 +1,4 @@
-# Model Registry
+# MLFlow Model Registry
 - After trying multiple models for a project, the best model will be stored in the model registry
 - Its a centralized system to manage the lifecycle of ML models after they are trained
 - It also maintains the version of the model along with the metadata

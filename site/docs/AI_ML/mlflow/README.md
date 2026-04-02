@@ -11,7 +11,7 @@ The goal is to organize and document my understanding of MLflow’s concepts, co
 - [MLFlow Logging](./md_utils/ml_flow_logging.md)
 - [MLFlow Auto Logging](./md_utils/mlflow_autologging.md)
 - [MLFlow Tracking Server](./md_utils/mlflow_tracking_server.md)
-- [MLFlow Model](./md_utils/mlflow_model.md)
+- [MLFlow Models](./md_utils/mlflow_model.md)
 - [MLFlow Model Evaluation](./md_utils/mlflow_model_evaluation.md)
 - [MLFlow Model Registry](./md_utils/mlflow_registry.md)
 - [MLFlow Projects](./md_utils/mlflow_projects.md)

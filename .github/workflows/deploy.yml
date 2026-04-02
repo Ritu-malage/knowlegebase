@@ -20,16 +20,11 @@ jobs:
         with:
           node-version: 20
 
-      - name: Setup Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Install dependencies
         working-directory: site
         run: npm install --no-audit --no-fund
 
-      - name: Build site (sync markdown + render notebooks)
+      - name: Build site (sync markdown)
         working-directory: site
         run: npm run build
 

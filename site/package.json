@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "npm run docs:sync:markdown && npm run docs:render:notebooks && docusaurus start",
-    "build": "npm run docs:sync:markdown && npm run docs:render:notebooks && docusaurus build",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

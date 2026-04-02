@@ -32,7 +32,7 @@ npm start
 
 This starts the local Docusaurus server for preview.
 
-### 3) Build docs (includes notebook rendering)
+### 3) Build docs
 
 ```bash
 cd site
@@ -40,8 +40,7 @@ npm run build
 ```
 
 What this build does:
-- Syncs markdown notes into `site/docs` (`docs:sync:markdown`)
-- Renders `.ipynb` notebooks into Docusaurus markdown using Quarto (`docs:render:notebooks`)
+- Notebook rendering is disabled (no `.ipynb` -> `.md` conversion)
 - Builds the static site into `site/build`
 
 ### 4) GitHub Pages deployment

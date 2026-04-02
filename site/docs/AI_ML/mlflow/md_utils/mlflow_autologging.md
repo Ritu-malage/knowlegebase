@@ -1,4 +1,4 @@
-# Auto Logging
+# MLFlow Auto Logging
 - MLFlow Automatically logs a very certain parameters, metrics, artifacts without explicitly writing code for the same
 - No manual logging like `mlflow.log_metrics()`, `mlflow.log_artifacts` etc is required. 
 - Manual logging will be time consuming when there is so much to log. This also makes the code very lengthly
