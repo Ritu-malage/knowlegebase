@@ -18,7 +18,7 @@ The goal is to organize and document my understanding of MLflow’s concepts, co
 - [MLFlow Client](./md_utils/mlflow_client.md)
 - [MLFlow CLI](./md_utils/mlflow_cli.md)
 - [MLFlow Deployment and Hosting](./md_utils/deployment.md)
-- [MLFlow Implementation](./practicals/practice.md)
+- [MLFlow Implementation](./md_practicals/practice.md)
 
 # References
 1. [https://mlflow.org/](https://mlflow.org/) 
