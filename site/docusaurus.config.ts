@@ -264,6 +264,7 @@ const config: Config = {
        
       ],
     },
+    // FOOTER SECTION 
     footer: {
       style: 'dark',
       links: [
@@ -276,15 +277,15 @@ const config: Config = {
         //     },
         //   ],
         // },
-        {
-          title: 'GitHub',
-          items: [
-            {
-              label: 'knowlegebase',
-              href: 'https://github.com/Ritu-malage/knowlegebase',
-            },
-          ],
-        },
+        // {
+        //   title: 'GitHub',
+        //   items: [
+        //     {
+        //       label: 'knowlegebase',
+        //       href: 'https://github.com/Ritu-malage/knowlegebase',
+        //     },
+        //   ],
+        // },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Ritu Malage.`,
     },

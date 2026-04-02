@@ -8,32 +8,28 @@ type FeatureItem = {
   title: string;
   description: string;
   to: string;
-  meta: string;
 };
 
 const FeatureList: FeatureItem[] = [
-  // {
-  //   title: 'AI / ML',
-  //   description:
-  //     'Notes and references across artificial intelligence, machine learning, and related areas.',
-  //   to: '/docs/AI_ML/',
-  //   meta: 'Top-level topic',
-  // },
+  {
+    title: 'AI / ML',
+    description:
+      'Notes and references across artificial intelligence, machine learning, and related areas.',
+    to: '/docs/AI_ML/',
+  },
   {
     title: 'MLFlow',
     description:
       'Practical notes on tracking, UI, logging, models, projects, registry, deployment, and implementation.',
     to: '/docs/AI_ML/mlflow/',
-    meta: 'MLFlow',
   },
 ];
 
 
-function Feature({title, description, to, meta}: FeatureItem) {
+function Feature({title, description, to}: FeatureItem) {
   return (
-    <div className={clsx('col col--3 col--md-6', styles.featureColumn)}>
+    <div className={clsx('col col--6 col--md-6', styles.featureColumn)}>
       <Link className={styles.featureCard} to={to}>
-        <p className={styles.cardMeta}>{meta}</p>
         <Heading as="h3" className={styles.cardTitle}>
           {title}
         </Heading>
@@ -62,11 +58,11 @@ export default function HomepageFeatures(): ReactNode {
           <div>
             <Heading as="h3">Notice something unclear or incorrect?</Heading>
             <p className={styles.communityText}>
-              Your feedback is welcome! If you find a something unclear or incorrect or an area that could be improved, please feel free to raise an issue on GitHub to help make this knowledgebase better.
+              Your feedback is welcome! Please feel free to raise an issue on GitHub to help make this knowledgebase better.
             </p>
           </div>
           <Link
-            className="button button--primary button--lg"
+            className="button button--primary button--md"
             to="https://github.com/Ritu-malage/knowlegebase/issues">
             Open an issue
           </Link>

@@ -30,12 +30,12 @@ function HomepageHeader() {
         </div>
         <div className={styles.buttons}>
           <Link
-            className="button button--secondary button--lg"
+            className="button button--primary button--lg"
             to="/docs/">
             Explore the docs
           </Link>
           <Link
-            className={clsx('button button--outline button--lg', styles.secondaryButton)}
+            className={clsx('button button--outline button--primary button--lg', styles.secondaryButton)}
             to="https://github.com/Ritu-malage/knowlegebase">
             View on GitHub
           </Link>

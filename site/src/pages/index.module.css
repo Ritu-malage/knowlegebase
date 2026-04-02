@@ -1,22 +1,15 @@
 .heroBanner {
-  padding: 5.5rem 0 4.5rem;
+  padding: 4.5rem 0 3rem;
   text-align: center;
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(circle at top left, rgba(255, 208, 140, 0.35), transparent 24%),
-    radial-gradient(circle at right center, rgba(116, 185, 255, 0.22), transparent 28%),
-    linear-gradient(135deg, #fff6e8 0%, #f8fbff 52%, #eef6f7 100%);
+  background: var(--ifm-background-color);
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+  color: var(--ifm-font-color-base);
 }
 
 .heroBackdrop {
-  position: absolute;
-  inset: auto -10% -35% auto;
-  width: 420px;
-  height: 420px;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(15, 118, 110, 0.18), transparent 68%);
-  pointer-events: none;
+  display: none;
 }
 
 .heroContent {
@@ -34,16 +27,16 @@
 }
 
 .heroTitle {
-  color: #102a43;
-  font-size: clamp(2.8rem, 5vw, 4.75rem);
-  line-height: 0.95;
+  color: var(--ifm-heading-color) !important;
+  font-size: clamp(2.6rem, 4.5vw, 4.1rem);
+  line-height: 1;
 }
 
 .heroSubtitle {
-  max-width: 760px;
+  max-width: 720px;
   margin: 1.25rem auto 0;
-  color: #334155;
-  font-size: 1.15rem;
+  color: var(--ifm-color-emphasis-700) !important;
+  font-size: 1.05rem;
 }
 
 .heroMeta {
@@ -51,22 +44,22 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
 }
 
 .heroMeta span {
-  padding: 0.55rem 0.9rem;
-  border: 1px solid rgba(15, 23, 42, 0.1);
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
-  color: #102a43;
-  font-size: 0.95rem;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-900);
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 4rem 1.25rem 3.5rem;
+    padding: 3.5rem 1.25rem 2.5rem;
   }
 }
 
@@ -76,23 +69,22 @@
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  margin-top: 1.75rem;
 }
 
 .secondaryButton {
-  border-color: #102a43;
-  color: #102a43;
-  background: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  color: var(--ifm-color-primary);
 }
 
 .secondaryButton:hover {
-  background: #102a43;
-  color: #fff;
+  background: var(--ifm-color-primary);
+  color: var(--ifm-button-color);
 }
 
 .heroNote {
   margin: 1.25rem auto 0;
   max-width: 680px;
-  color: #475569;
+  color: var(--ifm-color-emphasis-700);
   font-size: 0.98rem;
 }
