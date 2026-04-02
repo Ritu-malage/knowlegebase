@@ -1,3 +1,9 @@
+---
+# Determines the position in the side nav bar
+sidebar_position: 2
+title: AI-ML
+---
+
 # AI-ML
 
 Welcome to my AI & Machine Learning knowledge repository.

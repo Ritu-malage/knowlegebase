@@ -249,10 +249,12 @@ const config: Config = {
     },
     // NAVIGATION BAR
     navbar: {
-      title: 'knowlegebase',
+      title: 'Home',
       logo: {
         alt: 'knowlegebase Logo',
-        src: 'img/logo.svg',
+        src: 'img/home-brain-bulb.svg',
+        width: 40,
+        height: 40,
       },
       items: [
         {
