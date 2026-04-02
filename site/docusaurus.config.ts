@@ -116,7 +116,13 @@ const config: Config = {
           remarkPlugins: [rewriteNotebookLinksToGitHub],
           sidebarItemsGenerator: async ({defaultSidebarItemsGenerator, ...args}) => {
             const items = await defaultSidebarItemsGenerator(args);
-            const hiddenPrefix = 'AI_ML/mlflow/md_utils/';
+            const isHiddenSidebarDocId = (docId: string): boolean =>
+              docId.split('/').includes('md_utils');
+            const normalizeSidebarLabel = (label: string): string =>
+              label.toLowerCase().replace(/[\s_-]+/g, '');
+            const isHiddenCategory = (item: any): boolean =>
+              item?.type === 'category' &&
+              normalizeSidebarLabel(String(item?.label ?? '')) === 'mdutils';
 
             const docById = new Map(args.docs.map((d: any) => [d.id, d]));
             const sourceAbsPathToDocId = new Map(
@@ -256,12 +262,8 @@ const config: Config = {
                 const docItem = docIdToItem.get(docId);
                 if (docItem) {
                   // Docs not referenced by the TOC are intentionally dropped.
-                  // Hidden docs can be overridden by TOC inclusion.
-                  if (docItem.id.startsWith(hiddenPrefix)) {
-                    newItems.push(docItem);
-                  } else {
-                    newItems.push(docItem);
-                  }
+                  // Hidden utility docs can still be surfaced when explicitly linked from README.
+                  newItems.push(docItem);
                   continue;
                 }
 
@@ -289,11 +291,24 @@ const config: Config = {
               return {...categoryItem, items: newItems};
             };
 
+            const flattenHiddenCategories = (sidebarItems: any[]): any[] =>
+              sidebarItems.flatMap((item) => {
+                if (item?.type === 'category') {
+                  const flattenedChildren = flattenHiddenCategories(item.items ?? []);
+                  if (isHiddenCategory(item)) {
+                    return flattenedChildren;
+                  }
+                  return [{...item, items: flattenedChildren}];
+                }
+
+                return item ? [item] : [];
+              });
+
             const filterItems = (sidebarItems: any[]): any[] =>
               sidebarItems.flatMap((item) => {
                 if (item?.type === 'doc') {
                   // Non-TOC fallback: keep existing hidden-doc behavior.
-                  return item.id.startsWith(hiddenPrefix) ? [] : [item];
+                  return isHiddenSidebarDocId(item.id) ? [] : [item];
                 }
 
                 if (item?.type === 'category') {
@@ -309,7 +324,10 @@ const config: Config = {
                   }
 
                   // For README/index categories, we already built `items` from the TOC.
-                  return processed.items.length > 0 ? [processed] : [];
+                  const flattenedChildren = flattenHiddenCategories(children);
+                  return flattenedChildren.length > 0
+                    ? [{...processed, items: flattenedChildren}]
+                    : [];
                 }
 
                 return item ? [item] : [];
