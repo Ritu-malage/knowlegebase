@@ -41,6 +41,30 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          sidebarItemsGenerator: async ({defaultSidebarItemsGenerator, ...args}) => {
+            const items = await defaultSidebarItemsGenerator(args);
+            const hiddenPrefix = 'AI_ML/mlflow/md_utils/';
+
+            const filterItems = (sidebarItems: any[]): any[] =>
+              sidebarItems
+                .flatMap((item) => {
+                  if (item.type === 'doc') {
+                    return item.id.startsWith(hiddenPrefix) ? [] : [item];
+                  }
+
+                  if (item.type === 'category') {
+                    const filteredChildren = filterItems(item.items ?? []);
+                    // Drop empty categories after filtering children.
+                    return filteredChildren.length > 0
+                      ? [{...item, items: filteredChildren}]
+                      : [];
+                  }
+
+                  return [item];
+                });
+
+            return filterItems(items);
+          },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
