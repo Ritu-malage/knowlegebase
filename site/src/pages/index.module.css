@@ -1,0 +1,90 @@
+.heroBanner {
+  padding: 4.5rem 0 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--ifm-background-color);
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+  color: var(--ifm-font-color-base);
+}
+
+.heroBackdrop {
+  display: none;
+}
+
+.heroContent {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.heroKicker {
+  margin-bottom: 1rem;
+  color: #b45309;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  color: var(--ifm-heading-color) !important;
+  font-size: clamp(2.6rem, 4.5vw, 4.1rem);
+  line-height: 1;
+}
+
+.heroSubtitle {
+  max-width: 720px;
+  margin: 1.25rem auto 0;
+  color: var(--ifm-color-emphasis-700) !important;
+  font-size: 1.05rem;
+}
+
+.heroMeta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.heroMeta span {
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-900);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 3.5rem 1.25rem 2.5rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.75rem;
+}
+
+.secondaryButton {
+  background: transparent;
+  color: var(--ifm-color-primary);
+}
+
+.secondaryButton:hover {
+  background: var(--ifm-color-primary);
+  color: var(--ifm-button-color);
+}
+
+.heroNote {
+  margin: 1.25rem auto 0;
+  max-width: 680px;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.98rem;
+}
