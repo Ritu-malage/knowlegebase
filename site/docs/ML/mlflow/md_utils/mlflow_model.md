@@ -1,4 +1,4 @@
-# MLFlow Models
+# MLflow Models
 - It helps in packaging the trained models into a standard format
 - Before the model was packaged manually including its requirements and then deploying it into the production environment. This was time consuming and sometimes even error prone
     - Reproducing the same environment in which it was trained on is very difficult to be achieved
@@ -54,7 +54,7 @@
     - Requirements file for conda environments
 - python_env.yaml
 - MLmodel
-    - Its an YAML metadata file that tells MLFlow on how to load the model, what falvors it has, where are the artifacts stored, and what environment is required
+    - Its an YAML metadata file that tells MLflow on how to load the model, what falvors it has, where are the artifacts stored, and what environment is required
 
 # Contents of MLmodel file
 - It only contains metadata
@@ -77,7 +77,7 @@ flavors:
     loader_module: mlflow.sklearn
     python_version: 3.10.12
 ```
-- This tells MLFlow that its an sklearn model as it has an falvor called sklearn
+- This tells MLflow that its an sklearn model as it has an falvor called sklearn
 - The artifact is at `model.pkl`
 - It also supports python_function
 
@@ -119,12 +119,12 @@ saved_input_example_info:
 
 7. model_uuid
 - Unique identifier thats given for each model
-- This is used by MLFlow to track the experiments
+- This is used by MLflow to track the experiments
 
 
 # Model Signature
 - Specifies the input, output schema, the data types, shape of the data that the model expects and returns
-- This is used by MLFlow to generate the REST API for the models, which will futher be used for inferencing
+- This is used by MLflow to generate the REST API for the models, which will futher be used for inferencing
 - This information will be logged when we will be logging the run
 - Included as a part of the models metadata
 - Model signature is automatically logged if we used autologging, as this parameter is by default set to True
@@ -170,7 +170,7 @@ mlflow.log_model(lr, "model1", signature = signature)
                 ]'
       outputs: '[{"type":"integer"}]'
     ```
-    - Column based signatures are supported by all flavors of MLFlow
+    - Column based signatures are supported by all flavors of MLflow
   2. Tensor based
     - Data is represented as a multi dimensional array i.e. tensor
     - Only supported by deep learning flavors of MLflow like tensorflow, keras, pytorch, onnx etc
@@ -223,7 +223,7 @@ mlflow.save_model(lr, "model1")
 
 
 # `log_model()`
-- Logs the model as an artifact to the tracking server, thus making it accessible through MLFlow UI
+- Logs the model as an artifact to the tracking server, thus making it accessible through MLflow UI
 - Whereas `save_model` is used for local saving
 - It produces model containing 2 flavors Mlflow.sklearn, mlflow.pyfunc
 - This accepts a path where the model must be saved under the parameter called `artifact_path`, it can be a local path or a tracking server path
@@ -234,7 +234,7 @@ mlflow.save_model(lr, "model1")
 
 # `mlflow.pyfunc.load_model(`
 - To load the model using generic python interface
-- Allows to load any MLFlow model that has a pyfunc flavor
+- Allows to load any MLflow model that has a pyfunc flavor
 
 ```python
 import mlflow.pyfunc
@@ -249,11 +249,11 @@ predictions = model.predict(data)
 
 
 # Model customization
-- MLFlow supports a few built int flavors
-- But sometimes you might use an ML librabry that is not supported by MLFlows built in flavors in that case MLFlow provides customization by leveraging Custom python models and custom flavors
+- MLflow supports a few built int flavors
+- But sometimes you might use an ML librabry that is not supported by MLFlows built in flavors in that case MLflow provides customization by leveraging Custom python models and custom flavors
 
 # Custom python model
-- Its a way to package any python logic as an MLFlow Model using pyfunc flavor
+- Its a way to package any python logic as an MLflow Model using pyfunc flavor
 - To achieve this we use the class `mlflow.pyfunc.PythonModel`
 - Example 1:
 ```python 
@@ -271,7 +271,7 @@ mlflow.pyfunc.log_model(
   python_mode = "The object of the class which is of type mlflow.pyfunc.PythonModel, in this case its RAGModel()"
 )
 ```
-- Here the entire RAG system becomes a deployable MLFlow model
+- Here the entire RAG system becomes a deployable MLflow model
 - `mlflow.pyfunc.log_model` this will create a python function for the model
 - When this method is used in the MLmodel file you will be able to see only 1 flavor i.e. python_function
 
@@ -281,7 +281,7 @@ mlflow.pyfunc.log_model(
 - When you combine multiple models
 - Call an external API
 - Wraps an LLM
-- Use frameworks other than whats supported by MLFlow
+- Use frameworks other than whats supported by MLflow
 
 
 # Custom Flavor
@@ -293,4 +293,4 @@ mlflow.pyfunc.log_model(
 - Write scipts which shows how to load the model, save the model etc 
 - Then we need to create a directory which contains all the files, and the metadata related to the serialization and deserialization and for serving the model
 - Then finally Register the custom flavor
-- Eg: sktime, is used for timeseries data, but this is not supported directly by MLFlow thus if we want to use this then we will need to create a custom flavor
+- Eg: sktime, is used for timeseries data, but this is not supported directly by MLflow thus if we want to use this then we will need to create a custom flavor

@@ -1,11 +1,11 @@
 
-# MLFlow Tracking Server
+# MLflow Tracking Server
 - Whatever logging is done using autolog, or log_metric, log_artifact etc are all on local, thus these results cannot be accessed by others
-- So all of these logs must be stored elsewhere which is accessible to all, thats done by MLFlow tracking servers
+- So all of these logs must be stored elsewhere which is accessible to all, thats done by MLflow tracking servers
 - So its a centeralized repository to store and log all the metadata, artifacts etc thats generated on training the models
 - These results can be shared across and can be logged by multiple people at a single central place
 
-# Why MLFlow Tracking Server is required?
+# Why MLflow Tracking Server is required?
 - Without tracking server
     - Each user will have their only `mlruns` folder in their local
     - No sharing of experiments
@@ -63,8 +63,8 @@
         - This is more effcient  
 - Which protocol to choose depends on the requirements
 
-# Implement MLFlow Tracking server
-- To run the MLFlow tracking server
+# Implement MLflow Tracking server
+- To run the MLflow tracking server
 ```shell
 mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root <path to where you want the artifacts to be stored> --host 127.0.0.1 --port 5000 
 ```
@@ -88,11 +88,11 @@ with mlflow.start_run():
 - Once this server is stopped the tracking URI will not be accessible, thus this cannot be used in the production grade applications
 
 
-# How to enable MLFlow tracking servers in Production
+# How to enable MLflow tracking servers in Production
 - You will not use `mlflow server` as a terminal command
 - You must use Docker or Kubernetes or System services, cloud load balancer, managed databases, object storage 
 - This will ensure that the server is always running, auto restarted if crashes, accessible to teams, secure and scalable
-- If docker is used then MLFlow runs as a docker instead of a terminal command
+- If docker is used then MLflow runs as a docker instead of a terminal command
 ```shell
 docker run -d \
   -p 5000:5000 \
@@ -103,12 +103,12 @@ docker run -d \
 ```
 - This is easy to deploy, and runs in the background
 
-# MLFlow on localhost
-- Here MLFlow on the local system
+# MLflow on localhost
+- Here MLflow on the local system
 - Here the artifacts and the backend store can share a common directory called `mlruns`
 - On implementing mlflow in the scripts and by running, it automatically creates the dedicates files and folders thats required for tracking
 
-# MLFlow on localhost with SQLite
+# MLflow on localhost with SQLite
 - Here we use SQLite as the backend store on local machine for tracking runs
 - The artifacts is stored in the local system i.e. by default in `mlruns`
 - In this case we will need to set the tracking URI
@@ -116,16 +116,16 @@ docker run -d \
 mlflow.set_tracking_uri(uri="sqlite:///mlflow.db")
 ```
 
-# MLFlow supports distributed architecture this means that
+# MLflow supports distributed architecture this means that
 - Accepts logs from multiple machines, clients, services etc
 - Centralized metadata, and artifacts
 
 
-# MLFlow with remote
-- MLFlow supports distributed architectures, i.e. artifacts store, backend store and tracking server are stored at different places
+# MLflow with remote
+- MLflow supports distributed architectures, i.e. artifacts store, backend store and tracking server are stored at different places
 - These usually are present on the remote host. They are hosted on cloud services like AWS, Azure etc
-- On localhost when the run is executed the MLFlow client will make a REST API call to the tracking server
-- Tracking server will create an instance of SQL Alchemy store which is used by MLFlow to talk to the backend store.
+- On localhost when the run is executed the MLflow client will make a REST API call to the tracking server
+- Tracking server will create an instance of SQL Alchemy store which is used by MLflow to talk to the backend store.
 - This results in storing data in the Database which is present on the remote host
 - Now to store the artifacts the client will ask "Where should I store the artifacts for this run", this response is given by the tracking server
 - Localhost client sends a request to tracking server to fetch the artifacts store uri, and sends it back to localhost, then it stores the artifacts in that uri which can be S3 or anything else
@@ -136,9 +136,9 @@ mlflow.set_tracking_uri(uri="sqlite:///mlflow.db")
 - This is used in production level
 
 # Proxied Artifacts
-- Instead of the MLFlow client uploading artifacts directly to the artifact store, the MLFlow tracking server will do it on the clients behalf
+- Instead of the MLflow client uploading artifacts directly to the artifact store, the MLflow tracking server will do it on the clients behalf
 - For this first the client sends the artifacts to the tracking server and then the tracking server uploads them to the artifact store
-- So here the MLFlow tracking server acts like a proxy i.e. middleman for artifact uploads and downloads
+- So here the MLflow tracking server acts like a proxy i.e. middleman for artifact uploads and downloads
 - When the client is trying to directly upload it to artifact store then the client must have all access keys and credentials to AWS, and must have the network access to S3
 - Proxied Artifacts helps in maintaining security as no cloud credentials are required by the user
 - Client setup is easier in this case

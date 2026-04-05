@@ -1,14 +1,14 @@
-# MLFlow Projects
+# MLflow Projects
 - Helps in packaging the scripts, so that the experiments can be reproduced even in different environments
 - Helps in sharing the codes and dependencies
 - It provides a command line interface
 - Supports different project templates making it easier for the users to begin with
-- MLFlow has defined some rules, to structure the code in a particular format
-- A new file called "MLproject" must be created in your projects folder. The naming convention must be exactly the same. If its not maintained then MLFlow will not be able to recongise the same.
+- MLflow has defined some rules, to structure the code in a particular format
+- A new file called "MLproject" must be created in your projects folder. The naming convention must be exactly the same. If its not maintained then MLflow will not be able to recongise the same.
 - There is no extention for this file
 - The content within the MLproject will be in YAML
-- MLFlow tracking will help in logging the runs, while MLFlow projects helps in execution packaging
-- 3 parts in the MLFlow Project i.e. name, environment, and entry_points. Each of them is explained in detail below
+- MLflow tracking will help in logging the runs, while MLflow projects helps in execution packaging
+- 3 parts in the MLflow Project i.e. name, environment, and entry_points. Each of them is explained in detail below
 
 
 # MLproject environments
@@ -55,7 +55,7 @@ conda_env: path/to/conda.yaml
 
 4. Docker environment
     - These are used in the real projects
-    - MLFlow can run your code using the dependencies specified via a Docker image
+    - MLflow can run your code using the dependencies specified via a Docker image
     - The docker image will contain your entire projects dependencies
 ```yaml
 # MLproject
@@ -115,18 +115,18 @@ entry_points:
 - Each entry point will have a single command and can have more than 1 parameter
 
 
-# Running MLFlow project
-- You can run the MLFlow project either by using CLI or an API
+# Running MLflow project
+- You can run the MLflow project either by using CLI or an API
 - This can be run on local machine or on the remote machine
 
 1. CLI
     - `mlflow run [PARAMETERS OR OPTIONS] URI`
-    - URI: URI of the MLFlow project 
+    - URI: URI of the MLflow project 
     - First tracking URI must be set
     - `set MLFLOW_TRACKING_URI=<link to the tracking server>`
     - Then execute mlflow run command
     - `mlflow run --entry-point <Entry point name> -P arg1=0.5 -P arg2="xyz --experiment-name = <"Project Name">" . `
-    - . here allows the MLFlow to search for the MLProjects file to begin the execution
+    - . here allows the MLflow to search for the MLProjects file to begin the execution
 
 
 2. API
@@ -155,7 +155,7 @@ mlflow.projects.run(
 
 
 
-# List of a few Run command options while running MLFlow projects is given below
+# List of a few Run command options while running MLflow projects is given below
 
 1. To run an entry point
 ```bash
@@ -182,4 +182,4 @@ mlflow run -A < param1 = value 1 > -A < param2 = value 2 > < project URI >
 - Its like a guide book which explains your projects to others
 - Helps in standardizing the ML projects
 - Defines the overall project and its execution steps
-- It tells MLFlow on what environment to use, what parameters are accepted, how to run the code etc
+- It tells MLflow on what environment to use, what parameters are accepted, how to run the code etc

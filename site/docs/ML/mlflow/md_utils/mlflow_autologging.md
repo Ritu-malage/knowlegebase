@@ -1,5 +1,5 @@
-# MLFlow Auto Logging
-- MLFlow Automatically logs a very certain parameters, metrics, artifacts without explicitly writing code for the same
+# MLflow Auto Logging
+- MLflow Automatically logs a very certain parameters, metrics, artifacts without explicitly writing code for the same
 - No manual logging like `mlflow.log_metrics()`, `mlflow.log_artifacts` etc is required. 
 - Manual logging will be time consuming when there is so much to log. This also makes the code very lengthly
 - Autologging captures information during the run time itself
@@ -9,7 +9,7 @@
 1. `mlflow.autolog()`
 2. `mlflow.<lib>.autolog()`
     - Its a library specific auto logging
-    - When you dont want to log everything thats used and is supported by MLFlow autologging then use library specific auto logging
+    - When you dont want to log everything thats used and is supported by MLflow autologging then use library specific auto logging
     
 # `autolog()`
 - Based on the libraries you are using it will log its specific information
@@ -38,7 +38,7 @@
         - The exclusive parameter controls whether MLflow should log ONLY what autologging captures, or also allow your manual logging to be added.
         - Default: False
     - disable_for_unsupported_versions
-        - Set to True to disable auto logging for those libraries MLFlow is not compatible with
+        - Set to True to disable auto logging for those libraries MLflow is not compatible with
         - Default: False
     - silent
         - Set to True to supress all the warnings that comes up while logging the errors
@@ -63,7 +63,7 @@ lr.fit(train_X, train_y)
     - max_tuning_runs
         - Controls how many child MLflow runs can be created
         - Usually used when we are doing hperparameter tuning, small changes in values will result in N no of runs, this might be very difficult to maintain, so we can limit the no of sub runs that are being created
-        - Hyper parameter tuning can easily create 1000+ combinations and for each of these combinations MLFlow will create a new run 
+        - Hyper parameter tuning can easily create 1000+ combinations and for each of these combinations MLflow will create a new run 
         - Default = 5
     - log_post_training_metrics
         - Set tot True to log post training metrices like MAE, RMSE, MAP etc

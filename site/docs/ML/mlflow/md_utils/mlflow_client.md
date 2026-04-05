@@ -1,13 +1,13 @@
-# MLFlow Client
+# MLflow Client
 - Tracking server is responsible to track and log the models and artifacts
 - These tasks cannot be done by its own, it needs instructions on what it has to do, which is provided by the client
 - Its a Python API class that is used to programmatically interact with the tracking server and model registry
 - Think of it as a low level SDK thats used to directly manage experiments, runs, models and registry operations
-- High level API are those which are provided by the MLFlow librabry like `log_metric()`, `log_model()` etc
-- But when you want to search experiments, delete runs, update model decriptions etc use MLFlow Client
+- High level API are those which are provided by the MLflow librabry like `log_metric()`, `log_model()` etc
+- But when you want to search experiments, delete runs, update model decriptions etc use MLflow Client
 
 
-# What can MLFlow Client do?
+# What can MLflow Client do?
 - Manage & search experiments
 - Search runs
 - Manage Model registry
@@ -15,7 +15,7 @@
 
 
 
-# Experiment management using MLFlow client
+# Experiment management using MLflow client
 - Function provided
     - create_experiment
     - set_experiment_tag
