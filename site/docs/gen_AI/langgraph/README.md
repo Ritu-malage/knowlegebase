@@ -13,7 +13,7 @@ The goal is to organize and document my understanding of LangGraph's concepts, c
 - [How to create parallel workflows with reducers](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice5.ipynb)
 - [How to create conditional workflows without LLMs](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice6.ipynb)
 - [How to create iterative workflows](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice7.ipynb)
-- [Persistence](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/md_utils/persistence.md)
+- [Persistence](./md_utils/persistence.md)
 - [Steps to build a chatbot with and without memory](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice8.ipynb)
 - [How to implement Fault Tolerance & Time Travel (re-run for debugging)](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice9.ipynb)
 - [How to Stream the responses](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice10.ipynb)
@@ -23,7 +23,7 @@ The goal is to organize and document my understanding of LangGraph's concepts, c
 - [Human In Loop](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice14.ipynb)
 - [Implementation of SubGraphs](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice15.ipynb)
 - [Solving context overflow problem using trimming](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice16.ipynb)
-- [Deleting messages from a state](./practicals//practice17.ipynb)
+- [Deleting messages from a state](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals//practice17.ipynb)
 - [Solving context overflow problem using summarization](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice18.ipynb)
 - [Memory stores](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice19.ipynb)
 - [Personalizing the chatbot, using the existing memories](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/gen_AI/langgraph/practicals/practice20.ipynb)
@@ -33,4 +33,4 @@ The goal is to organize and document my understanding of LangGraph's concepts, c
 # References
 1. [https://academy.langchain.com/courses/intro-to-langgraph](https://academy.langchain.com/courses/intro-to-langgraph)
 2. [https://www.youtube.com/playlist?list=PLKnIA16_RmvYsvB8qkUQuJmJNuiCUJFPL](https://www.youtube.com/playlist?list=PLKnIA16_RmvYsvB8qkUQuJmJNuiCUJFPL)
-3. [Kaggle Notebook by Google - implemnting a cafe ordering chatbot system](https://www.kaggle.com/code/markishere/day-3-building-an-agent-with-langgraph/notebook) refer to this to understand the flow of LangGraph projects
+3. [Kaggle Notebook by Google - implementation of a cafe ordering chatbot system](https://www.kaggle.com/code/markishere/day-3-building-an-agent-with-langgraph/notebook) 

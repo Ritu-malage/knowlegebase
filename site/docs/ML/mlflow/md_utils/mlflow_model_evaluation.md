@@ -1,16 +1,16 @@
-# MLFlow Model Evaluation
+# MLflow Model Evaluation
 - Measures how well the models are performing with the unseen data
 
 
 # `mlflow.evaluate()`
 - Its an API
-- Used to evaluate the MLFlow models performance
+- Used to evaluate the MLflow models performance
 - It evaluates the models based on the N no of metrices that it computes
 - Eg: for classification tasks it will compute Accuracy, precision, Recall, F1 etc
 - Eg: For regression it will be MSE, MAE
 - It can generate various model performance graphs like confusion matrix, precision-recall curve, ROC curve etc
 - Provides model explanations which will help us to analyze the results better and also identify he factors driving the prediction results for instance, SHAP, Feature importance etc
-- All of the computed results, plots, explainations are all stored in MLFlow tracking
+- All of the computed results, plots, explainations are all stored in MLflow tracking
 - This should be used after the model is saved or logged
 - Parameters
     - model

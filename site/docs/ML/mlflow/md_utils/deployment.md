@@ -1,4 +1,4 @@
-# MLFlow Deployment and Hosting
+# MLflow Deployment and Hosting
 
 # Problem Statement
 - To predict house prices
@@ -8,12 +8,12 @@
 - Write the scripts
 - Push it to GitHub
 - To store artifacts S3 bucket can be used
-- Create EC2 instance for MLFlow tracking
+- Create EC2 instance for MLflow tracking
 
 
-# Steps to run MLFlow server on EC2 instance
+# Steps to run MLflow server on EC2 instance
 - Open the remote system for the EC2 instance
-- Setup MLFlow in it
+- Setup MLflow in it
 - This is a 1 time thing
 ```bash
 sudo apt update
@@ -34,7 +34,7 @@ pip install mlflow awscli boto3 setuptools
 aws configure
 ```
 - This will prompt you to enter the AWS access key details
-- Now the whole setup of MLFlow in the EC2 instance is completed
+- Now the whole setup of MLflow in the EC2 instance is completed
 - Now tracking server must be started
 ```bash
 mlflow server -h 0.0.0.0 --backend-store-uri sqlite:///mlflow.db --default-artifact-root s3://< path >
@@ -43,8 +43,8 @@ mlflow server -h 0.0.0.0 --backend-store-uri sqlite:///mlflow.db --default-artif
 - In the instance we need to enable the port 5000 under security groups and inbound rules
 - The type must be Custom TCP, Port = 5000, Source = Anywhere IPv4. Then save the rule
 - Then copy the Public IPV4 DNS and then paste this in the browswer 
-`PublicIPv4DNS/5000`, this will be tracking server URI for MLFlow
-- Now you will be able to run MLFlow server on the EC2 instance
+`PublicIPv4DNS/5000`, this will be tracking server URI for MLflow
+- Now you will be able to run MLflow server on the EC2 instance
 
 
 # Amazon SageMaker
@@ -57,8 +57,8 @@ mlflow server -h 0.0.0.0 --backend-store-uri sqlite:///mlflow.db --default-artif
     - Monitor models in production
 - You dont have to manage the servers manually 
 - Its an end-to-end ML platform for training + deployment + MLOps.
-- MLFlow helps in tracking, logging, pacakaging while sagemaker helps in scaling the training infrastructue, deployment infrastructure and manage the endpoints
-- Its like train on sage maker and log its metrics in MLFlow 
+- MLflow helps in tracking, logging, pacakaging while sagemaker helps in scaling the training infrastructue, deployment infrastructure and manage the endpoints
+- Its like train on sage maker and log its metrics in MLflow 
 
 
 # Setup of sageMaker
@@ -66,9 +66,9 @@ mlflow server -h 0.0.0.0 --backend-store-uri sqlite:///mlflow.db --default-artif
 - Then create a notebook instance within Amazon sageMaker
 - The role to the notebook must have access to the repository, and S3
 - Now run the training on the sageMaker
-- The tracking URI must be set to the EC2 instance where MLFlow setup is done
+- The tracking URI must be set to the EC2 instance where MLflow setup is done
 - Then after comparing the models, register the best model
-- Now run the below command in the notebook to deploy models from MLFlow to Amazon Sage maker
+- Now run the below command in the notebook to deploy models from MLflow to Amazon Sage maker
 ```bash
 mlflow sagemaker build-and-push-container --container xgb --env-manager conda
 ```
@@ -81,7 +81,7 @@ mlflow sagemaker build-and-push-container --container xgb --env-manager conda
 
 # Deployment methods
 - First we need to train the model
-- Log the model using MLFlow
+- Log the model using MLflow
 - Register the model
 - Test it locally if you are able to test it 
 ```bash
@@ -89,7 +89,7 @@ mlflow models serve -m models:< path > -p 5000
 ```
 
 ## Option1 of deployment
-- One way is to directly load the MLFlow model in your Flask or FastAPI
+- One way is to directly load the MLflow model in your Flask or FastAPI
 ```python
 import mlflow.pyfunc
 

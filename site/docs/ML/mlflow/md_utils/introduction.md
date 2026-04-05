@@ -7,7 +7,7 @@
   continuous improvement.
 - MLOps aims to **standardize and streamline the ML lifecycle** so teams
   can ship models reliably, not just train them once on a laptop.
-- MLFlow is a tool based on the concept of MLOps
+- MLflow is a tool based on the concept of MLOps
   
 
 

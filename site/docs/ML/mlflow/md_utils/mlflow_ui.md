@@ -8,7 +8,7 @@
   - See metrics (accuracy, loss, etc.)
   - Download artifacts (models, plots, files)
   - Register and manage models
-- Use the below command to run the MLFlow UI. 
+- Use the below command to run the MLflow UI. 
 
 
 ## Launching the UI
