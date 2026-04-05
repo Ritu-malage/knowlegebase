@@ -1,4 +1,4 @@
-# MLFlow Model Registry
+# MLflow Model Registry
 - After trying multiple models for a project, the best model will be stored in the model registry
 - Its a centralized system to manage the lifecycle of ML models after they are trained
 - It also maintains the version of the model along with the metadata
@@ -52,8 +52,8 @@
 ```python
 mlflow.log_model("model1", registered_model_name = "registered_model1")
 ```
-- This will tell MLFlow after logging the model artifact, register it in the model registry
-- This will work only when MLFlow is connected to a tracking server that has a backend store configured
+- This will tell MLflow after logging the model artifact, register it in the model registry
+- This will work only when MLflow is connected to a tracking server that has a backend store configured
 - This is because all the model artifacts can be stored locally , but to register a model there is a need to a database to store its metadata
 - If the registered_model_name had existed before then it will create a new version of it
 
@@ -118,12 +118,12 @@ model = mlflow.pyfunc.load_model(
 
 predictions = model.predict(input_data)
 ```
-- This same script will work in production too, just that trackng uri will not be a local host URI instead will be the host URI of MLFlow
+- This same script will work in production too, just that trackng uri will not be a local host URI instead will be the host URI of MLflow
 
 
 # How to register an external model
-- External model is a model that was trained using a seperate code and was not logged using MLFlow
-- First start the MLFlow tracking server
+- External model is a model that was trained using a seperate code and was not logged using MLflow
+- First start the MLflow tracking server
 ```python
 import pickle
 import mlflow

@@ -1,11 +1,11 @@
-# MLFlow CLI
+# MLflow CLI
 - List of various commands that could be run on CLI
 
-# MLFlow Doctor
-- Helps in debugging and identifying the environment issues with the MLFlow setup
-- More like a health checker for MLFlow
+# MLflow Doctor
+- Helps in debugging and identifying the environment issues with the MLflow setup
+- More like a health checker for MLflow
 
-## Why is MLFlow Doctor needed?
+## Why is MLflow Doctor needed?
 - When MLflow doesn’t behave as expected, common issues include:
     - Tracking server not reachable
     - Wrong backend store URI
@@ -23,7 +23,7 @@ mlflow doctor
 mlflow doctor --mask-envs
 ```
 
-# MLFlow artifacts
+# MLflow artifacts
 - Through CLI we can 
     - Download
     - List
@@ -47,7 +47,7 @@ mlflow artifacts download --local-dir < Path where the artifacts are currently p
 mlflow db upgrade sqlite:///mlflow.db
 ```
 
-# MLFlow experiments
+# MLflow experiments
 - Through CLI we can
     - create experiments
     - rename experiments
@@ -86,7 +86,7 @@ runs_df.to_csv("experiments.csv", index=False)
 mlflow experiments csv --experiment-id < id > --filename < sample.csv >
 ```
 
-# MLFlow Runs
+# MLflow Runs
 - Used to
     - List
     - Restore

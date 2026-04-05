@@ -12,9 +12,9 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'MLFlow',
+    title: 'MLflow',
     description:
-      'Practical notes on tracking, UI, logging, models, projects, registry, deployment, and implementation.',
+      'Notes on MLflow covering experiment tracking, UI usage, and logging practices. Includes references on managing models, organizing projects, working with the registry, and deployment strategies.',
     to: '/docs/ML/mlflow/',
   },
   {

@@ -37,7 +37,7 @@ under the currently active **experiment**.
 
 ---
 
-## What is MLFlow Experiment?
+## What is MLflow Experiment?
 - Its like a project
 - A logical group of related runs  
 - Experiments help organize and compare runs that belong together.
@@ -195,7 +195,7 @@ with mlflow.start_run(experiment_id=experiment.experiment_id):
 - This run, including parameters, metrics, and the model artifact, will be
 visible in the MLflow UI.
 - For more detailed logging APIs (e.g. `log_param`, `log_metric`,
-`log_artifact`), refer to [MLFlow Logging](ml_flow_logging.md)
+`log_artifact`), refer to [MLflow Logging](ml_flow_logging.md)
 
 ---
 
@@ -274,4 +274,4 @@ with mlflow.start_run(run_name="run1", experiment_id=exp2.experiment_id):
 
 
 # Hands On
-- [MLFlow Tracking](../md_practicals/practice.md)
+- [MLflow Tracking](../md_practicals/practice.md)
