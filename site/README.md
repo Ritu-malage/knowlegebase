@@ -1,41 +1,45 @@
-# Website
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+# Docusaurus Execution Steps
 
-## Installation
-
-```bash
-yarn
-```
-
-## Local Development
+## 1. Local setup
+From the repo root:
 
 ```bash
-yarn start
+cd site
+npm install
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
+## 2. Run locally (dev server)
 
 ```bash
-yarn build
+cd site
+npm start
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+- This starts the local Docusaurus server for preview.
 
-## Deployment
-
-Using SSH:
+## 3. Build docs
 
 ```bash
-USE_SSH=true yarn deploy
+cd site
+npm run build
 ```
 
-Not using SSH:
+- What this build does:
+    - Notebook rendering is disabled (no `.ipynb` -> `.md` conversion)
+    - Builds the static site into `site/build`
 
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
+## 4. GitHub Pages deployment
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+- Workflow file: `.github/workflows/deploy.yml`
+- Trigger: push to `main` branch (or manual run via GitHub Actions)
+- Deploy target: `gh-pages` branch
+- Published URL: `https://ritumalage.github.io/knowlegebase/`
+
+## 5. First-time Pages setup (GitHub UI)
+
+In your repository settings:
+- Go to **Settings -> Pages**
+- Set **Source** to **Deploy from a branch**
+- Select branch **`gh-pages`** and folder **`/ (root)`**
+
