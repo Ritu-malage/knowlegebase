@@ -1,0 +1,101 @@
+.features {
+  padding: 3rem 0 4rem;
+  width: 100%;
+  background: var(--ifm-background-color);
+}
+
+.sectionIntro {
+  max-width: 760px;
+  margin: 0 auto 1.75rem;
+  text-align: center;
+}
+
+.kicker {
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sectionLead {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 1rem;
+}
+
+.featureColumn {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.featureCard {
+  width: 100%;
+  padding: 1.25rem;
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: 16px;
+  background: var(--ifm-background-surface-color);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease;
+}
+
+.description {
+  color: var(--ifm-color-emphasis-700);
+  min-height: 4rem;
+  margin-bottom: 0;
+}
+
+.featureCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--ifm-color-primary);
+}
+
+.cardTitle {
+  margin-bottom: 0.65rem;
+  color: var(--ifm-color-primary);
+}
+
+.communityNote {
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+}
+
+.communityLabel {
+  margin-bottom: 0.5rem;
+  color: #fbd38d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.communityText {
+  margin-bottom: 0;
+  color: var(--ifm-color-emphasis-700);
+}
+
+@media screen and (max-width: 996px) {
+  .features {
+    padding: 2.5rem 0 3rem;
+  }
+
+  .description {
+    min-height: auto;
+  }
+
+  .communityNote {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
