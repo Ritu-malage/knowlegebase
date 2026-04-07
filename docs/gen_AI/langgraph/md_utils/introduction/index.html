@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-gen_AI/langgraph/md_utils/introduction" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Introduction | Knowlegebase</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://ritumalage.github.io/knowlegebase/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://ritumalage.github.io/knowlegebase/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://ritumalage.github.io/knowlegebase/docs/gen_AI/langgraph/md_utils/introduction"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Introduction | Knowlegebase"><meta data-rh="true" name="description" content="What is Generative AI?"><meta data-rh="true" property="og:description" content="What is Generative AI?"><link data-rh="true" rel="icon" href="/knowlegebase/img/home-brain-bulb.svg"><link data-rh="true" rel="canonical" href="https://ritumalage.github.io/knowlegebase/docs/gen_AI/langgraph/md_utils/introduction"><link data-rh="true" rel="alternate" href="https://ritumalage.github.io/knowlegebase/docs/gen_AI/langgraph/md_utils/introduction" hreflang="en"><link data-rh="true" rel="alternate" href="https://ritumalage.github.io/knowlegebase/docs/gen_AI/langgraph/md_utils/introduction" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Generative AI","item":"https://ritumalage.github.io/knowlegebase/docs/gen_AI/"},{"@type":"ListItem","position":2,"name":"LangGraph","item":"https://ritumalage.github.io/knowlegebase/docs/gen_AI/langgraph/"},{"@type":"ListItem","position":3,"name":"Introduction","item":"https://ritumalage.github.io/knowlegebase/docs/gen_AI/langgraph/md_utils/introduction"}]}</script><link rel="stylesheet" href="/knowlegebase/assets/css/styles.535a231e.css">
+<script src="/knowlegebase/assets/js/runtime~main.b195550d.js" defer="defer"></script>
+<script src="/knowlegebase/assets/js/main.aabae64b.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/knowlegebase/img/home-brain-bulb.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/knowlegebase/"><div class="navbar__logo"><img src="/knowlegebase/img/home-brain-bulb.svg" alt="knowlegebase Logo" class="themedComponent_mlkZ themedComponent--light_NVdE" height="40" width="40"><img src="/knowlegebase/img/home-brain-bulb.svg" alt="knowlegebase Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="40" width="40"></div><b class="navbar__title text--truncate">Home</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/knowlegebase/docs/">Docs</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/knowlegebase/docs/"><span title="Table of Contents" class="linkLabel_WmDU">Table of Contents</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/knowlegebase/docs/ML/"><span title="ML" class="categoryLinkLabel_W154">ML</span></a><button aria-label="Expand sidebar category &#x27;ML&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/knowlegebase/docs/gen_AI/"><span title="Generative AI" class="categoryLinkLabel_W154">Generative AI</span></a><button aria-label="Collapse sidebar category &#x27;Generative AI&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" tabindex="0" href="/knowlegebase/docs/gen_AI/langgraph/"><span title="LangGraph" class="categoryLinkLabel_W154">LangGraph</span></a><button aria-label="Collapse sidebar category &#x27;LangGraph&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/knowlegebase/docs/gen_AI/langgraph/md_utils/introduction"><span title="Introduction" class="linkLabel_WmDU">Introduction</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/knowlegebase/docs/gen_AI/langgraph/md_utils/persistence"><span title="Persistence" class="linkLabel_WmDU">Persistence</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/knowlegebase/docs/gen_AI/langgraph/md_utils/types_of_rag"><span title="Types of RAG" class="linkLabel_WmDU">Types of RAG</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/knowlegebase/docs/gen_AI/langgraph/practicals/chatbot/"><span title="ChatBot Implementation" class="linkLabel_WmDU">ChatBot Implementation</span></a></li></ul></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/knowlegebase/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/knowlegebase/docs/gen_AI/"><span>Generative AI</span></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/knowlegebase/docs/gen_AI/langgraph/"><span>LangGraph</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Introduction</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Introduction</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-generative-ai">What is Generative AI?<a href="#what-is-generative-ai" class="hash-link" aria-label="Direct link to What is Generative AI?" title="Direct link to What is Generative AI?" translate="no">​</a></h2>
+<p>Generative AI is a subset of AI that creates new content such as text, images, audio, or code.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="traditional-ai-vs-generative-ai">Traditional AI vs Generative AI<a href="#traditional-ai-vs-generative-ai" class="hash-link" aria-label="Direct link to Traditional AI vs Generative AI" title="Direct link to Traditional AI vs Generative AI" translate="no">​</a></h2>
+<table><thead><tr><th>Traditional AI</th><th>Generative AI</th></tr></thead><tbody><tr><td>Learns patterns in data</td><td>Learns the data distribution</td></tr><tr><td>Makes predictions</td><td>Generates new samples</td></tr><tr><td>Output is usually a label/value</td><td>Output is new content</td></tr><tr><td>Example: Traditional ML: Given image → predict “cat”</td><td>Example: Generative AI: Learns from many cat images → generates a new cat image</td></tr></tbody></table>
+<h1>Normal AI Chatbot vs Agentic AI Chatbot</h1>
+<ol>
+<li class="">Normal AI Chatbot</li>
+</ol>
+<ul>
+<li class="">Reacts only to user input</li>
+<li class="">Requires explicit step-by-step instructions</li>
+<li class="">No autonomous planning (Cannot do it by its own)</li>
+<li class="">Example: User: First search X, then summarize, then send email. The chatbot follows exactly what is written.</li>
+</ul>
+<ol start="2">
+<li class="">Agentic AI Chatbot</li>
+</ol>
+<ul>
+<li class="">You provide only the end goal</li>
+<li class="">It decides how to achieve the goal</li>
+<li class="">Creates its own plan</li>
+<li class="">Executes multiple steps autonomously</li>
+<li class="">Maintains context across steps</li>
+<li class="">Can revise its strategy</li>
+<li class="">Example:<!-- -->
+<ul>
+<li class="">User: “Hire a backend engineer in India”</li>
+<li class="">The agent:<!-- -->
+<ul>
+<li class="">Creates hiring plan</li>
+<li class="">Posts job</li>
+<li class="">Screens resumes</li>
+<li class="">Shortlists candidates</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1>Agentic AI</h1>
+<ul>
+<li class="">Agentic AI is a subset of AI systems that:<!-- -->
+<ul>
+<li class="">Accept a goal</li>
+<li class="">Plan actions</li>
+<li class="">Execute steps</li>
+<li class="">Adapt to changes</li>
+<li class="">Minimize human intervention</li>
+</ul>
+</li>
+<li class="">It only seeks human help when required.</li>
+</ul>
+<h1>Key Characteristics of Agentic Systems</h1>
+<ul>
+<li class="">How do we differentiate agentic vs non-agentic systems?</li>
+<li class="">An agentic system typically has:</li>
+</ul>
+<ol>
+<li class="">Autonomy<!-- -->
+<ul>
+<li class="">Does not require step-by-step instructions</li>
+<li class="">Proactively decides next actions</li>
+</ul>
+</li>
+<li class="">Goal-Oriented Behavior<!-- -->
+<ul>
+<li class="">Works toward a defined objective</li>
+<li class="">Goals may include constraints</li>
+<li class="">Example: “Hire a backend engineer” v/s “Hire a backend engineer in India”</li>
+</ul>
+</li>
+<li class="">Planning<!-- -->
+<ul>
+<li class="">Breaks high-level goal into smaller tasks</li>
+<li class="">Generates multiple plans called candidate plans</li>
+<li class="">Evaluates plans based on:<!-- -->
+<ul>
+<li class="">Cost</li>
+<li class="">Efficiency</li>
+<li class="">Tool availability (Whether all the tools required to achieve the plan exists or not)</li>
+<li class="">Selects the optimal plan</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="">Reasoning<!-- -->
+<ul>
+<li class="">Makes logical decisions</li>
+<li class="">Evaluates intermediate results</li>
+</ul>
+</li>
+<li class="">Adaptability<!-- -->
+<ul>
+<li class="">Modifies plan if conditions change</li>
+<li class="">Handles unexpected scenarios</li>
+<li class="">Stays aligned with the final goal</li>
+</ul>
+</li>
+<li class="">Context Awareness<!-- -->
+<ul>
+<li class="">Maintains memory of previous steps</li>
+<li class="">Understands conversation history</li>
+</ul>
+</li>
+</ol>
+<h1>Controlling Autonomy</h1>
+<ul>
+<li class="">Autonomy can be dangerous, eg: An agent posting job openings without approval.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ways-to-control-autonomy">Ways to Control Autonomy<a href="#ways-to-control-autonomy" class="hash-link" aria-label="Direct link to Ways to Control Autonomy" title="Direct link to Ways to Control Autonomy" translate="no">​</a></h2>
+<ol>
+<li class="">Define scope<!-- -->
+<ul>
+<li class="">Specify what decisions agent can take independently</li>
+<li class="">Specify when human approval is required</li>
+</ul>
+</li>
+<li class="">Guardrails &amp; Policies<!-- -->
+<ul>
+<li class="">Define strict rules</li>
+<li class="">Add validation checks</li>
+<li class="">Restrict tool access</li>
+</ul>
+</li>
+<li class="">Human-in-the-Loop<!-- -->
+<ul>
+<li class="">Require manual approval for sensitive actions</li>
+</ul>
+</li>
+</ol>
+<h1>Components of an Agentic AI system</h1>
+<ol>
+<li class="">Brain<!-- -->
+<ul>
+<li class="">Brain usually will be the LLM</li>
+<li class="">Iterprets the goals</li>
+<li class="">Creates plans</li>
+<li class="">Selects tools</li>
+<li class="">Heavy lifting is done by the brain</li>
+</ul>
+</li>
+<li class="">Orchestrator<!-- -->
+<ul>
+<li class="">Executes the plan created by the LLM</li>
+<li class="">Manages the execution order</li>
+<li class="">Handles<!-- -->
+<ul>
+<li class="">Conditional routing</li>
+<li class="">Loop</li>
+<li class="">Retries</li>
+<li class="">Delegation</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="">Tools<!-- -->
+<ul>
+<li class="">Performs external calls</li>
+<li class="">Extracting company specific information via RAG will also be considered as the tool</li>
+</ul>
+</li>
+<li class="">Memory<!-- -->
+<ul>
+<li class="">Short term memory, Long term memory, and state tracking</li>
+</ul>
+</li>
+<li class="">Supervisor<!-- -->
+<ul>
+<li class="">Human in the loop can be implemented using Supervisor</li>
+</ul>
+</li>
+</ol>
+<h1>LangChain</h1>
+<ul>
+<li class="">LangChain is an open-source framework used to build LLM-based applications.</li>
+<li class="">Simple agents can also be created using LangChains</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="core-components-of-langchain">Core Components of LangChain<a href="#core-components-of-langchain" class="hash-link" aria-label="Direct link to Core Components of LangChain" title="Direct link to Core Components of LangChain" translate="no">​</a></h2>
+<ol>
+<li class="">Models<!-- -->
+<ul>
+<li class="">Any LLM model can be used</li>
+<li class="">Migrating between LLMs will not be a hassle</li>
+</ul>
+</li>
+<li class="">Prompts</li>
+<li class="">Retrievers</li>
+<li class="">Chains<!-- -->
+<ul>
+<li class="">Helps in connecting multiple components together</li>
+<li class="">The output of one component of the chain will be passed onto the next component of the chain</li>
+</ul>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="limitations-of-building-agents-using-langchain">Limitations of Building Agents Using LangChain<a href="#limitations-of-building-agents-using-langchain" class="hash-link" aria-label="Direct link to Limitations of Building Agents Using LangChain" title="Direct link to Limitations of Building Agents Using LangChain" translate="no">​</a></h2>
+<ul>
+<li class="">Primarily known for linear workflow, thus implementing complex workflow will be difficult</li>
+<li class="">No native support for complex loops</li>
+<li class="">Conditional routing is limited</li>
+<li class="">State management must be handled manually</li>
+<li class="">Fault tolerance is limited (cannot resume from where it breaks)</li>
+<li class="">Hard to pause and resume long-running workflows.</li>
+<li class="">Maintenance becomes complex for multi-step systems</li>
+</ul>
+<h1>LangGraph</h1>
+<ul>
+<li class="">LangGraph is an orchestration framework built on top of LangChain.</li>
+<li class="">It uses a graph-based execution model. Due to which its easier to implement complex non linear workflows</li>
+<li class="">In LangGraph there are helper constructs for running loops, running conditional branches etc. but in LangChain its not present</li>
+<li class="">Using LangGraph we can create a single or a multi agent system</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="core-components">Core components<a href="#core-components" class="hash-link" aria-label="Direct link to Core components" title="Direct link to Core components" translate="no">​</a></h2>
+<ol>
+<li class="">Nodes<!-- -->
+<ul>
+<li class="">Each task (python function) is a node</li>
+<li class="">Every node will have the state input</li>
+<li class="">Every node will output a state</li>
+<li class="">Every node will have access to the state and can update the state</li>
+</ul>
+</li>
+<li class="">Edges<!-- -->
+<ul>
+<li class="">Connect nodes</li>
+<li class="">Defines the execution flow</li>
+<li class="">Support:<!-- -->
+<ul>
+<li class="">Loops</li>
+<li class="">Conditional branches</li>
+<li class="">Parallel paths</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="">State<!-- -->
+<ul>
+<li class="">Its a shared memory that flows through your entire workflow</li>
+<li class="">It stores all the data that is passed between nodes and maintains the execution context of the system.</li>
+<li class="">It can be of typedict or a pydantic model</li>
+<li class="">Every node takes state as an input, modifies it and returns the updates state as an output</li>
+<li class="">Its like a shared memory that every node can read and update</li>
+<li class="">It is represented as key–value pairs.</li>
+</ul>
+</li>
+<li class="">Reducers<!-- -->
+<ul>
+<li class="">Reducers define how updates to the state should be applied when multiple nodes modify the same key.</li>
+<li class="">By default, state updates may overwrite previous values. However, in many workflows, overwriting can cause loss of important information.</li>
+<li class="">Reducers help control whether values should:<!-- -->
+<ul>
+<li class="">Overwrite</li>
+<li class="">Append</li>
+<li class="">Merge</li>
+<li class="">Combine in a custom way</li>
+</ul>
+</li>
+<li class="">Consider a state key called message.</li>
+<li class="">Scenario Without Reducer<!-- -->
+<ul>
+<li class="">Node 1 updates: message -&gt; Hi my name is John</li>
+<li class="">Node 2 updates: message → &quot;Sup, how are you?&quot;</li>
+<li class="">The second update overwrites the first message.</li>
+<li class="">Now if: node 3 asks &quot;What is my name?&quot;</li>
+<li class="">The system cannot answer correctly because the earlier message was overwritten.</li>
+</ul>
+</li>
+<li class="">How reducers solve this?<!-- -->
+<ul>
+<li class="">Instead of overwriting, a reducer can:</li>
+<li class="">Append messages to a list</li>
+<li class="">Merge previous and new values</li>
+<li class="">Maintain full conversation history</li>
+<li class="">This ensures no loss of context.</li>
+</ul>
+</li>
+<li class="">Each key in the state can have its own reducer.</li>
+<li class="">Different keys may require different update strategies.</li>
+</ul>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-langgraph-is-better-for-agents">Why LangGraph is Better for Agents?<a href="#why-langgraph-is-better-for-agents" class="hash-link" aria-label="Direct link to Why LangGraph is Better for Agents?" title="Direct link to Why LangGraph is Better for Agents?" translate="no">​</a></h2>
+<p>LangGraph provides</p>
+<ul>
+<li class="">Built-in loop handling</li>
+<li class="">Conditional routing</li>
+<li class="">Stateful execution</li>
+<li class="">Checkpointing</li>
+<li class="">Fault tolerance</li>
+<li class="">Pause and resume capability</li>
+<li class="">Human-in-the-loop support</li>
+<li class="">Subgraphs (nested reusable workflows)</li>
+<li class="">Multi-agent system support</li>
+</ul>
+<h1>Difference between LangChain and LangGraph</h1>
+<table><thead><tr><th>LangChain</th><th>LangGraph</th></tr></thead><tbody><tr><td>Linear execution</td><td>Graph-based execution</td></tr><tr><td>Stateless</td><td>Stateful</td></tr><tr><td>Limited loop support</td><td>Native loop constructs</td></tr><tr><td>Manual state handling</td><td>Shared state object</td></tr><tr><td>Limited fault tolerance</td><td>Checkpointing &amp; recovery</td></tr><tr><td>Hard to pause &amp; resume</td><td>Supports pause &amp; resume</td></tr><tr><td>Nested workflows difficult</td><td>Supports subgraphs</td></tr><tr><td>Best for simple workflows</td><td>Best for complex agentic systems</td></tr></tbody></table>
+<h1>When to use LangChain and when to use LangGraph?</h1>
+<p>Use LangChain When:</p>
+<ul>
+<li class="">Building simple LLM pipelines</li>
+<li class="">Basic RAG applications</li>
+<li class="">Single-step workflows</li>
+<li class="">No complex loops required
+Use LangGraph When:</li>
+<li class="">Building agentic systems</li>
+<li class="">Need loops and conditional paths</li>
+<li class="">Multi-agent workflows</li>
+<li class="">Human-in-the-loop</li>
+<li class="">Long-running workflows</li>
+<li class="">Production-grade orchestration</li>
+</ul>
+<h1>LLM Workflows</h1>
+<ul>
+<li class="">Workflow: Series of tasks executed in a structured manner to achieve a specific goal.</li>
+<li class="">LLM Workflow: An LLM Workflow is a structured sequence of tasks that involve one or more Large Language Models (LLMs) to accomplish a goal.</li>
+<li class="">Each step in the workflow will be executing different sets of tasks like prompting, tool cooling, decision making etc</li>
+<li class="">Workflows can be linear, parallel, branched, looped etc</li>
+<li class="">There can exist common workflows</li>
+</ul>
+<h1>Common workflows</h1>
+<ol>
+<li class="">Prompt chaining<!-- -->
+<ul>
+<li class="">An LLM Workflow is a structured sequence of tasks that involve one or more Large Language Models (LLMs) to accomplish a goal.</li>
+<li class="">Input -&gt; LLM1 -&gt; LLM2 -&gt; LLM3</li>
+</ul>
+</li>
+<li class="">Routing<!-- -->
+<ul>
+<li class="">The system decides which LLM (or tool) should handle the request based on the input.</li>
+<li class="">A decision LLM (or classifier) analyzes the input and routes it to the appropriate model.</li>
+<li class="">Input → Router LLM → Selected LLM → Output</li>
+</ul>
+</li>
+<li class="">Parallelization<!-- -->
+<ul>
+<li class="">A single large task is broken into multiple smaller independent subtasks.</li>
+<li class="">Each subtask is processed in parallel by different LLM calls.</li>
+<li class="">After completion, the results are aggregated into the final output.</li>
+</ul>
+</li>
+<li class="">Orchestrator Workers<!-- -->
+<ul>
+<li class="">Its similar to parallelization workflows</li>
+<li class="">Just that the parallel LLMs tasks are not fixed</li>
+<li class="">Here the parallel LLMs tasks are dynamically assigned based on the nature of the task</li>
+<li class="">Input -&gt; Orchestrator -&gt; Parallel LLM calls are made -&gt; Aggregate the results -&gt; Output</li>
+</ul>
+</li>
+<li class="">Evaluator Optimizer<!-- -->
+<ul>
+<li class="">The response provided by LLM at first go will not be the best one</li>
+<li class="">2 LLMs are involved one is the generator LLM which generates the results and the other is the evalutor LLM which will evaulate the results</li>
+<li class="">So there will be an Evaluator LLM, which evaultes the response, and sends the generator LLMs a feedback, and the LLM generator will process the feedback and regenerate the results again</li>
+<li class="">This process will go on in loop until the generated results is accepted by the evaluator LLM</li>
+</ul>
+</li>
+</ol>
+<h1>Observability</h1>
+<ul>
+<li class="">Observability refers to the ability to monitor and analyze what happens at each step of a workflow or system.</li>
+<li class="">Responses generated by LLMs are non-deterministic, meaning that the same question asked multiple times may produce different answers.</li>
+<li class="">The observability platform that works with both LangChain and LangGraph is LangSmith.</li>
+<li class="">The following four environment variables must be configured(<code>.env</code> file). Once they are set, the traces will automatically appear in the LangSmith dashboard under the project name specified in the <code>LANGSMITH_PROJECT</code> variable.</li>
+<li class="">Using LangSmith, you will be able to monitor details such as:<!-- -->
+<ul>
+<li class="">The query that was asked</li>
+<li class="">The response generated by the model</li>
+<li class="">The time taken to produce the response</li>
+<li class="">The number of tokens consumed</li>
+<li class="">The steps on how the tool calling is happening</li>
+</ul>
+</li>
+</ul>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">LANGSMITH_TRACING=&quot;true&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">LANGSMITH_ENDPOINT=&quot;https://api.smith.langchain.com&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">LANGSMITH_API_KEY=&quot;KEY&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">LANGSMITH_PROJECT=&quot;Name of the project&quot;</span><br></span></code></pre></div></div>
+<ul>
+<li class="">This will store all the sessions information in a single project</li>
+<li class="">But if you want to see how must each thread is consuming then we will need to pass metadata in the config variable so that in LangGraph under the projects&gt; Threads you will be able to see thread specific information</li>
+</ul>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">config </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">&quot;configurable&quot;</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token string" style="color:#e3116c">&quot;thread_id&quot;</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> st</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">session_state</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">&quot;thread_id&quot;</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">&quot;metadata&quot;</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token string" style="color:#e3116c">&quot;thread_id&quot;</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> st</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">session_state</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">&quot;thread_id&quot;</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span></code></pre></div></div>
+<h1>Sub‑Graphs</h1>
+<ul>
+<li class="">A node within a graph can itself represent another graph.</li>
+<li class="">When adding a subgraph we need to define how the parent graph and sub graph communicate. This can be done in 2 ways</li>
+</ul>
+<ol>
+<li class="">Invoke a graph from a node<!-- -->
+<ul>
+<li class="">The sub graphs are independent</li>
+<li class="">They are not connected</li>
+<li class="">Instead one node will call/ invoke another sub graph</li>
+<li class="">In this method each sub graph can maintain a seperate state</li>
+</ul>
+</li>
+<li class="">Add a graph as a node<!-- -->
+<ul>
+<li class="">The sub graphs are connected to the main graph</li>
+<li class="">There is a shared state that has to be maintained</li>
+</ul>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="benefits-of-subgraphs">Benefits of Sub‑Graphs<a href="#benefits-of-subgraphs" class="hash-link" aria-label="Direct link to Benefits of Sub‑Graphs" title="Direct link to Benefits of Sub‑Graphs" translate="no">​</a></h2>
+<ul>
+<li class="">
+<p><strong>Modularity</strong></p>
+<ul>
+<li class="">Break down a large workflow into smaller, manageable sub‑graphs instead of building one massive graph.</li>
+<li class="">This makes complex systems easier to design and understand.</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Reusability</strong></p>
+<ul>
+<li class="">Sub‑graphs can be reused across multiple workflows.</li>
+<li class="">Example: A RAG (Retrieval‑Augmented Generation) sub‑graph might include nodes for embedding queries and retrieving documents.</li>
+<li class="">This same RAG sub‑graph can then be integrated into a chatbot, search engine, or other applications.</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Maintainability</strong></p>
+<ul>
+<li class="">Debugging a huge graph with 100+ nodes is difficult</li>
+<li class="">Smaller sub‑graphs can be tested and debugged independently, improving reliability.</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Team Collaboration</strong></p>
+<ul>
+<li class="">Different teams can work on separate sub‑graphs or sub‑agents, enabling parallel development and specialization.</li>
+</ul>
+</li>
+<li class="">
+<p><strong>State Management</strong></p>
+<ul>
+<li class="">Each sub‑graph can maintain its own state.</li>
+<li class="">Managing a single state across a massive graph is complex, but sub‑graphs simplify this process.</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Observability</strong></p>
+<ul>
+<li class="">The execution and performance of each sub‑graph can be traced individually, making monitoring and analysis more effective.</li>
+</ul>
+</li>
+</ul>
+<h1>MessageState</h1>
+<ul>
+<li class="">Its a prebuilt state schema that is used to manage the conversational messages in a graph workflow</li>
+<li class="">It is a A state class containing a <code>messages</code> attribute, which stores a list of different message types (e.g., <code>HumanMessage</code>, <code>AIMessage</code>).</li>
+<li class="">Its mainly designed for chat based agentic workflows</li>
+<li class="">Instead of manually defining the state for chatbots, you can directly use:</li>
+</ul>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">from</span><span class="token plain"> langgraph</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">graph </span><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> MessageState`</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">graph </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> StateGraph</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">MessageState</span><span class="token punctuation" style="color:#393A34">)</span><br></span></code></pre></div></div></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/gen_AI/langgraph/md_utils/introduction.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/knowlegebase/docs/gen_AI/langgraph/"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">LangGraph</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/knowlegebase/docs/gen_AI/langgraph/md_utils/persistence"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Persistence</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#what-is-generative-ai" class="table-of-contents__link toc-highlight">What is Generative AI?</a></li><li><a href="#traditional-ai-vs-generative-ai" class="table-of-contents__link toc-highlight">Traditional AI vs Generative AI</a></li><li><a href="#ways-to-control-autonomy" class="table-of-contents__link toc-highlight">Ways to Control Autonomy</a></li><li><a href="#core-components-of-langchain" class="table-of-contents__link toc-highlight">Core Components of LangChain</a></li><li><a href="#limitations-of-building-agents-using-langchain" class="table-of-contents__link toc-highlight">Limitations of Building Agents Using LangChain</a></li><li><a href="#core-components" class="table-of-contents__link toc-highlight">Core components</a></li><li><a href="#why-langgraph-is-better-for-agents" class="table-of-contents__link toc-highlight">Why LangGraph is Better for Agents?</a></li><li><a href="#benefits-of-subgraphs" class="table-of-contents__link toc-highlight">Benefits of Sub‑Graphs</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Ritu Malage.</div></div></div></footer></div>
+</body>
+</html>
