@@ -79,7 +79,7 @@ function rewriteNotebookLinksToGitHub() {
 const config: Config = {
   title: 'Knowlegebase',
   tagline: 'Notes, notebooks, and practical guides',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/home-brain-bulb.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
