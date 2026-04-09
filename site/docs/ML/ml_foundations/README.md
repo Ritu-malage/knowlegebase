@@ -6,6 +6,7 @@ The goal is to organize and document my understanding of classical machine learn
 
 # Table of Contents
 - [Introduction](./md_utils/introduction.md)
+- [Data Preprocessing](./md_utils/data_preprocessing/data_preprocessing.md)
 
 # References
 - [https://www.udemy.com/course/machinelearning/](https://www.udemy.com/course/machinelearning/)
