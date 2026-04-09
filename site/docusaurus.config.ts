@@ -1,6 +1,8 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
 
 import fs from 'fs';
 import path from 'path';
@@ -80,6 +82,9 @@ const config: Config = {
   title: 'Knowlegebase',
   tagline: 'Notes, notebooks, and practical guides',
   favicon: 'img/home-brain-bulb.svg',
+  stylesheets: [
+    'https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css',
+  ],
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -113,7 +118,8 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          remarkPlugins: [rewriteNotebookLinksToGitHub],
+          remarkPlugins: [remarkMath, rewriteNotebookLinksToGitHub],
+          rehypePlugins: [rehypeKatex],
           sidebarItemsGenerator: async ({defaultSidebarItemsGenerator, ...args}) => {
             const items = await defaultSidebarItemsGenerator(args);
             const isHiddenSidebarDocId = (docId: string): boolean =>
