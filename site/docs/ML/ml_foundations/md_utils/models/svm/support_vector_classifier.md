@@ -4,4 +4,11 @@
 - Objective of SVC is to maximize the error where in SVR it is to fit as many points as possible inside the margin of error tub
 
 # Implementation
-- [Predict if the user will purchase a product given their estimated salary and age](./practicals/support_vector_classifier.ipynb)
+```python
+from sklearn.svm import SVC
+
+model = SVC(kernel = "linear")
+model.fit(X_train_scaled, y_train)
+
+```
+- By default the kernel = "rbf"
