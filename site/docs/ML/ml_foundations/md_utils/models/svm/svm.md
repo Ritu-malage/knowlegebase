@@ -86,3 +86,7 @@ model = SVC(kernel="rbf")
 - Very robust model
 - Can work with non linearable problems
 
+
+# Types of SVMs
+- [Support Vector Classifier](./support_vector_classifier.md)
+- [Support Vector Regression](./support_vector_regression.md)
