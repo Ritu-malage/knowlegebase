@@ -31,7 +31,9 @@
 
 
 
-# Support Vectors
+<a id="support-vectors"></a>
+
+## Support Vectors
 
 - These are the **vectors that passes through the maginal plane**.
 - There **can be more than 1 support vector on the single marginal plane**

@@ -9,7 +9,7 @@
 - If a condition is satisfied, it will branch out to check the next set of conditions
 - Each node will divide the dataset into 2 smaller sub datasets, this is called as the binary split
 - It **can handle non linear relationships** that exists in the dataset
-- It is a [non parametric model](../../introduction.md/#parameteric-vs-non-parametric-models)
+- It is a non parametric model
 
 # Disadvantages
 - It can **easily overfit** the training dataset
@@ -69,6 +69,3 @@
 - Then it looks for that feature which split into most distint groups. i.e. the feature which returns the highest information gain
 - Based on the answer to the previously chosen node, it divides the dataset ino smaller datasets
 - This division will continue until it reaches the final leaf node.
-
-
-
