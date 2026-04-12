@@ -23,6 +23,12 @@ const FeatureList: FeatureItem[] = [
       'Comprehensive notes on using LangGraph for Retrieval-Augmented Generation (RAG), chatbot development, and practical implementation strategies.',
     to: '/docs/gen_AI/langgraph/',
   },
+  {
+    title: 'Machine Learning Foundation',
+    description:
+      'Notes on core ML concepts including supervised and unsupervised learning, model evaluation, bias-variance tradeoff, and optimization techniques. Covers essential algorithms, data preprocessing, and theoretical and practical principles that form the basis for applied machine learning.',
+    to: '/docs/ML/ml_foundations/',
+  },
 ];
 
 
