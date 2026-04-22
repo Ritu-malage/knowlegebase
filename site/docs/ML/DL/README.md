@@ -9,4 +9,4 @@ The goal is to organize and document my understanding of deep learning concepts,
 - [Introduction](./md_utils/introduction.md)
 - [Activation Function](./md_utils/activation_functions/activation_functions.md)
 - [Churn Analysis using simple ANN](https://github.com/Ritu-malage/knowlegebase/blob/main/site/docs/ML/DL/practicals/churn_analysis.ipynb)
-- [CNN](./md_utils/CNN/cnn.md)
+- [CNN](./md_utils/CNN/README.md)
