@@ -96,3 +96,11 @@
 # Feature scaling is a must in DL
 - Skipping will make training slower, unstable, or just fail.
 - Results in Vanishing and expoding gradients
+
+# How to decide the best value for the epochs?
+- One epoch refers to visiting all the samples present in the training set once
+- The main goal is to train until the  stops, improving and not until the training loss is minimum
+- There is no best value for the number of epochs
+- Just watch the curves. If both the training and the validation loss is decreasing, then it implies the model learning is in the positive direction. But if the training law is decreasing but validation loss is increasing, then it implies the model is
+- The best value for epoch is usually right before the validation law starts reducing
+- Instead of guessing the number of epochs let the model stop automatically This can be achieved using early stopping

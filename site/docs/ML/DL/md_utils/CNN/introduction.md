@@ -53,3 +53,7 @@
 - Cross entropy penalizes wrong predictions heavily, whereas MSE treats all errors more uniformly
 - MSE is better for regression models
 - Cross entropy provides larger, more useful gradients
+
+# Points to Remember
+- Use **ReLU** as the activation function in the hidden layers where it is required.  
+- For the final output layer, avoid using ReLU and instead choose an activation function appropriate to the task (e.g., sigmoid for binary classification, softmax for multi-class classification).  
