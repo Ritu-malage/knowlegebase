@@ -5,5 +5,6 @@
 - [K Nearest Neighbours](./knn/knn.md)
 - [K-Means Clustering](./k_means/k_means.md)
 - [Decision Trees](./decision_tree/decision_tree.md)
+- [XGBoost](./xgboost/xgboost.md)
 - [Hierarchial Clustering](./hierarchial_clustering/hierarchial_clustering.md)
 - [Association Rule Learning](./association_rule_learning/association_rule_learning.md)
