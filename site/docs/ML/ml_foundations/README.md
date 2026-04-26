@@ -9,6 +9,7 @@ The goal is to organize and document my understanding of classical machine learn
 - [Data Preprocessing](./md_utils/data_preprocessing/data_preprocessing.md)
 - [Models](./md_utils/models/models.md)
 - [Performance Metrices](./md_utils/performance_metrices/performance_metrices.md)
+- [Feature Extraction](./md_utils/feature_extraction/feature_extraction.md)
     
 
 # References
