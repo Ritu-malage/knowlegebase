@@ -12,6 +12,7 @@
 4. Embeddings
 5. [Binary encoding](binary_encoding.md)
 6. [Dummy Variable Encoding](dummy_variable_encoding.md)
+7. [Label Encoding](label_encoding.md)
 
 
 # Benefits of using encoding
