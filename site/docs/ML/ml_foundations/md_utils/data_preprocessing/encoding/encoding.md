@@ -45,3 +45,52 @@ preprocessor = ColumnTransformer(
 X_train_processed = preprocessor.fit_transform(X_train)
 X_test_processed = preprocessor.transform(X_test)
 ```
+
+# Questions
+## Can you apply 2 different transformations on the same column using `ColumnTransformer`?
+- No. Column transformer applies all the transformations in parallel. 
+```python
+transformer = ColumnTransformer(transformers = 
+                            [
+                                ("mean_imputer", SimpleImputer(strategy = "mean"), ["Age"]),
+                                ("unknown_class_imputer", SimpleImputer(strategy = "constant", fill_value = "Unknown"), ["Sex", "Colour"]),
+                                ("encoder", OrdinalEncoder(),["Sex", "Colour"]) ,
+                                ("scaler", StandardScaler(), ["Age", "Fare"]),
+                                
+                            ], 
+                            remainder = "passthrough"
+                           )
+```
+- Here the columns Age is undergoing 2 transformation i.e. Simple imputations for imputing the NANs with the mean and to scale the values using StandardScaler. 
+- In this case even after applying the transformations we might get to see non scaled values or NAN values, as both are running in parallel
+- Instead you will have to use `Pipeline` which will help in running all the steps specified within the pipeline in the sequential manner
+
+```python
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OrdinalEncoder, StandardScaler
+
+# Pipelines for each type of column
+num_pipeline = Pipeline([
+    ("imputer", SimpleImputer(strategy="mean")),
+    ("scaler", StandardScaler())
+])
+
+cat_pipeline = Pipeline([
+    ("imputer", SimpleImputer(strategy="constant", fill_value="Unknown")),
+    ("encoder", OrdinalEncoder())
+])
+
+
+# Combine everything
+transformer = ColumnTransformer(
+    transformers=[
+        ("numerical_transformer", num_pipeline, ["Age", "Fare"]),
+        ("categorical_transformer", cat_pipeline, ["Sex", "Colour"]),
+    ],
+    remainder="passthrough"
+)
+
+```
+- So in this case numerical_transformation is applied on columns Age and Fare by first imputing the NANs with the mean and then applies Scaling to it

@@ -21,4 +21,7 @@ imputer.fit_transform(df[["col1", "col2"]])
 ```
 - This will replace NA values with the mean for col1 and col2
 - This will work only for numerical columns
-- 
+- But if you want to replace the NANs in the categorical value with some unknown class
+```python
+imputer = SimpleImputer(strategy = "constant", fill_value = "Unknown")
+```
