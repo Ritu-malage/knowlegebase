@@ -14,3 +14,5 @@ The goal is to organize and document my understanding of classical machine learn
 
 # References
 - [https://www.udemy.com/course/machinelearning/](https://www.udemy.com/course/machinelearning/)
+- Practicals
+    - Kaggle Competition - [Titanic Survival Classification](https://www.kaggle.com/competitions/titanic)

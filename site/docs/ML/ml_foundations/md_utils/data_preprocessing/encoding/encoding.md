@@ -54,7 +54,7 @@ transformer = ColumnTransformer(transformers =
                             [
                                 ("mean_imputer", SimpleImputer(strategy = "mean"), ["Age"]),
                                 ("unknown_class_imputer", SimpleImputer(strategy = "constant", fill_value = "Unknown"), ["Sex", "Colour"]),
-                                ("encoder", OrdinalEncoder(),["Sex", "Colour"]) ,
+                                ("encoder", OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value = -1),["Sex", "Colour"]) , # unknown_value = -1 results in adding -1 for the unseen classes. For this handle_unknown must be set
                                 ("scaler", StandardScaler(), ["Age", "Fare"]),
                                 
                             ], 
