@@ -1,3 +1,4 @@
+# Dummy Variable Encoding
 # What are dummy variables?
 - It is similar to one hot encoding just that 1 of the columns will be dropped
 - For instance if 1 hot encoding for the column "colours" is 
