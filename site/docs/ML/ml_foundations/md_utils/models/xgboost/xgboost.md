@@ -2,8 +2,8 @@
 - eXtreme Gradient Boosting
 - Can be used for both regression and classification
 - It is a widely used machine learning algorithm
-- It builds a model by combining many small   one after the other to improve predictions step-by-step
-- Each  tree aims at correcting the errors made by the previous trees
+- It builds a model by combining many small models one after the other to improve predictions step-by-step
+- Each tree aims at correcting the errors made by the previous trees
 - It’s an advanced implementation of
 - Models are built sequentially
 
