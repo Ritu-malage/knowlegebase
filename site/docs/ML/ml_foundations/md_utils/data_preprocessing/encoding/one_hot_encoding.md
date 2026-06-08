@@ -59,3 +59,11 @@ df = column_transformer.fit_transform(df)
   - Multi-hot encoding [1, 0, 0, 1, 0] → Sparse representation = {0, 3}.  
 - Sparse representation saves **memory** compared to full vectors.  
 - However, it cannot be directly fed into the model, since the model may incorrectly infer **numerical relationships** between categories.  
+
+# Disadvantages of One hot encoding
+- As the number of categories increases, the number of categories increases the no of columns generated due to one hot encoding also increases which results in exploding number of dummy variables?
+- It is difficult to assess the feature importance because one column with N categories is now converted into N different columns and does not include the original column. Even if we want to assess the feature importance, we will have to perform some mathematical operations
+- This Doesn’t work well with tree based algorithms as each category is now a different column. The tree based algorithms will split by the category rather than the original column i.e. instead of split by country you are splitting by Country = Spain
+- Results in sparse columns
+- If a particular column contain some ordinal information that is, PhD is greater than masters, which is greater than bachelors. Then this information would be lost when it is converted into one hot encoding. Model, if you’d like to explore this further, and no, what do we do in case this?
+- Computationally, expensive as the number of dimensions have increased

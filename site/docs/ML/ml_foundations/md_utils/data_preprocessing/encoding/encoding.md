@@ -13,7 +13,7 @@
 5. [Binary encoding](binary_encoding.md)
 6. [Dummy Variable Encoding](dummy_variable_encoding.md)
 7. [Label Encoding](label_encoding.md)
-
+8. [Target Encoding](target_encoding.md)
 
 # Benefits of using encoding
 - It reduces the number of dimensions/categories/unqiue values under a feature.
