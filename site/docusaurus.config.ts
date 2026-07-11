@@ -289,7 +289,85 @@ const config: Config = {
                 }
               }
 
-              return {...categoryItem, items: newItems};
+              return {
+                ...categoryItem,
+                items: sortSidebarItemsByReadmeOrder(newItems, readmeDocId),
+              };
+            };
+
+            const sortSidebarItemsByReadmeOrder = (
+              sidebarItems: any[],
+              readmeDocId?: string | null,
+            ): any[] => {
+              if (!Array.isArray(sidebarItems) || sidebarItems.length === 0) {
+                return sidebarItems ?? [];
+              }
+
+              const sortChildren = (items: any[]): any[] =>
+                items.map((item) => {
+                  if (item?.type !== 'category') {
+                    return item;
+                  }
+
+                  const linkId = item?.link?.type === 'doc' ? item.link.id : undefined;
+                  const childItems = sortChildren(item.items ?? []);
+                  return linkId
+                    ? {...item, items: sortSidebarItemsByReadmeOrder(childItems, linkId)}
+                    : {...item, items: childItems};
+                });
+
+              if (!readmeDocId) {
+                return sortChildren(sidebarItems);
+              }
+
+              const tocEntries = getTocEntriesForReadmeDocId(readmeDocId);
+              if (tocEntries.length === 0) {
+                return sortChildren(sidebarItems);
+              }
+
+              const orderByDocId = new Map<string, number>();
+              const orderByAbsPath = new Map<string, number>();
+              tocEntries.forEach((entry, index) => {
+                const docId = sourceAbsPathToDocId.get(entry.href);
+                if (docId) {
+                  orderByDocId.set(docId, index);
+                }
+                orderByAbsPath.set(normalizePathForUrl(entry.href), index);
+              });
+
+              const getItemOrder = (item: any): number => {
+                if (!item) return Number.MAX_SAFE_INTEGER;
+
+                if (item?.type === 'doc' && typeof item.id === 'string') {
+                  if (orderByDocId.has(item.id)) {
+                    return orderByDocId.get(item.id)!;
+                  }
+
+                  const absPath = resolveAbsPathFromDocId(item.id);
+                  if (absPath && orderByAbsPath.has(normalizePathForUrl(absPath))) {
+                    return orderByAbsPath.get(normalizePathForUrl(absPath))!;
+                  }
+                }
+
+                if (item?.type === 'category' && item?.link?.type === 'doc') {
+                  const linkedId = item.link.id;
+                  if (typeof linkedId === 'string' && orderByDocId.has(linkedId)) {
+                    return orderByDocId.get(linkedId)!;
+                  }
+
+                  if (typeof linkedId === 'string') {
+                    const absPath = resolveAbsPathFromDocId(linkedId);
+                    if (absPath && orderByAbsPath.has(normalizePathForUrl(absPath))) {
+                      return orderByAbsPath.get(normalizePathForUrl(absPath))!;
+                    }
+                  }
+                }
+
+                return Number.MAX_SAFE_INTEGER;
+              };
+
+              const sortedItems = [...sidebarItems].sort((a, b) => getItemOrder(a) - getItemOrder(b));
+              return sortChildren(sortedItems);
             };
 
             const flattenHiddenCategories = (sidebarItems: any[]): any[] =>
@@ -326,8 +404,9 @@ const config: Config = {
 
                   // For README/index categories, we already built `items` from the TOC.
                   const flattenedChildren = flattenHiddenCategories(children);
-                  return flattenedChildren.length > 0
-                    ? [{...processed, items: flattenedChildren}]
+                  const sortedChildren = sortSidebarItemsByReadmeOrder(flattenedChildren, linkId);
+                  return sortedChildren.length > 0
+                    ? [{...processed, items: sortedChildren}]
                     : [];
                 }
 
