@@ -23,6 +23,12 @@ const FeatureList: FeatureItem[] = [
       'Comprehensive notes on using LangGraph for Retrieval-Augmented Generation (RAG), chatbot development, and practical implementation strategies.',
     to: '/docs/gen_AI/langgraph/',
   },
+  {
+    title: 'Agentic AI',
+    description:
+      'Notes on Agentic AI covering its core ideas, how agents work in loops with tools, and practical uses for automation and problem-solving.',
+    to: '/docs/gen_AI/agentic_ai/',
+  }
 ];
 
 

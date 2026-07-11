@@ -8,6 +8,6 @@ title: Generative AI
 
 |No.|Topics|
 |---|---|
-|1| [LangGraph](./langgraph/)  |
-
+|1| [LangGraph](./langgraph/)|
+|2| [Agentic AI](./agentic_ai/)|
 
