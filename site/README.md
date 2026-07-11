@@ -43,3 +43,17 @@ In your repository settings:
 - Set **Source** to **Deploy from a branch**
 - Select branch **`gh-pages`** and folder **`/ (root)`**
 
+
+# Steps to execute with chatbot
+- Start backend
+
+```bash
+cd chatbot-api
+python server.py
+```
+
+- Run Docusaurus
+```bash
+cd site
+npm start
+```

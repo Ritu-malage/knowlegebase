@@ -39,6 +39,11 @@ function HomepageHeader() {
             to="https://github.com/Ritu-malage/knowlegebase">
             View on GitHub
           </Link>
+          <Link
+            className={clsx('button button--secondary button--lg', styles.secondaryButton)}
+            to="/chat">
+            Try the chatbot
+          </Link>
         </div>
       </div>
     </header>

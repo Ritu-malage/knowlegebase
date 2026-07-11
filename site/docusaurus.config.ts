@@ -96,6 +96,9 @@ const config: Config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'ritumalage', // Usually your GitHub org/user name.
   projectName: 'knowlegebase', // Usually your repo name.
+  customFields: {
+    chatbotApiUrl: process.env.DOCUSAURUS_CHATBOT_API_URL ?? 'http://localhost:8080',
+  },
 
   onBrokenLinks: 'throw',
 
@@ -370,6 +373,11 @@ const config: Config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Docs',
+        },
+        {
+          to: '/chat',
+          label: 'Chat',
+          position: 'right',
         },
        
       ],
