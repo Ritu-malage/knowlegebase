@@ -72,7 +72,17 @@
 # Tools
 - Also called function calling
 - You are giving new capabilities
-
+- Its a simple function that an LLM can ask runtime to execute
+- A tool allows an LLM to interact with the outside world.
+- Without tools, an LLM can only generate text.
+- With tools, it can:
+  - Search the web
+  - Read files
+  - Query databases
+  - Send emails
+  - Execute python code
+- Example: If the user asks "whats the weather in Bangalore?". The LLM will answer this question from its training data, which might be outdated. But if we give access to weather tool then query -> LLM -> Use weather tool -> Runtime executes the weather tool -> Returns the answer to the runtime -> Runtime gives the response to the LLM -> Regenerates output
+- The description of a tool helps the LLM understand when it should be invoked
 
 # Working of an LLM with Access to Tools
 
@@ -84,3 +94,32 @@
 - Runtime passes the tool’s output back to the LLM
 - LLM processes the result and generates the final answer for the user
 
+
+# System Prompt
+
+- Provides the LLM with instructions on how it should behave, including its role, rules, and response style
+- Typically hidden from the user
+- Sent before the user’s message
+- Does not make the LLM smarter or add new knowledge, but guides it on how to use the knowledge it already has
+
+
+# LLM is stateless
+
+- An LLM does not remember anything from previous requests unless you explicitly send that information again.
+- Example:
+    - Conversation 1: Hi I am Ritu; Response: Hi Ritu
+    - Conversation 2: What is my name; Response: I don’t know your name
+- Instead we will need to send information about conversation 1 both the query and the response as a part of context to conversation 2 in order to get the answer for query 2
+
+# Context Engineering
+- Context engineering is about giving the model the right information at the right time.
+- Prompt engineering is about writing better prompts
+- Context: Everything the LLM sees before generating an answer.
+- Context includes
+  - Instructions
+  - System & User prompt
+  - Long term memory - Information that is stored based on previous conversations and interactions
+  - Short term memory - Conversational history
+  - Information of the available tools
+  - RAG
+  - Information on how the output should be structured
