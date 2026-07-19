@@ -4,5 +4,6 @@
 - [Prompt chaining](prompt_chaining.md)
 - [Routing](routing.md)
 - [Parallelization](parallelization.md)
-- Orchestrator–Worker
-- Evaluator–Optimizer
+- [Orchestrator–Worker](orchestrator.md)
+- [Evaluator–Optimizer](evaluator_optimizer.md)
+
