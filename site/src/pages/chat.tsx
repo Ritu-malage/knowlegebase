@@ -52,6 +52,11 @@ type ChatResponse = {
   sources: ChatSource[];
 };
 
+type SessionMenuState = {
+  sessionId: string;
+  open: boolean;
+};
+
 const STORAGE_SESSION_KEY = 'knowlegebase.chat.activeSessionId';
 const STORAGE_SESSIONS_KEY = 'knowlegebase.chat.sessions';
 const MAX_SIDEBAR_SESSIONS = 12;
@@ -130,17 +135,65 @@ function MessageBubble({message}: {message: ChatMessage}) {
                 target="_blank"
                 rel="noreferrer">
                 <span className={styles.sourceTitle}>{source.title}</span>
-                {source.heading ? <span className={styles.sourceHeading}>{source.heading}</span> : null}
                 {typeof source.score === 'number' ? (
                   <span className={styles.sourceScore}>Match {Math.round(source.score * 100)}%</span>
                 ) : null}
-                {source.excerpt ? <p>{source.excerpt}</p> : null}
               </a>
             ))}
           </div>
         </div>
       ) : null}
     </article>
+  );
+}
+
+function getSessionDisplayTitle(title: string): string {
+  const trimmed = title.trim();
+  if (!trimmed) {
+    return 'New chat';
+  }
+  return trimmed;
+}
+
+function IconNewChat() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 5v14M5 12h14" />
+    </svg>
+  );
+}
+
+function IconBrand() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3.2c-1.7 0-3.3.6-4.5 1.8l-.9.9A6.4 6.4 0 0 0 5 10.5v3a6.4 6.4 0 0 0 1.6 4.6l.9.9A6.4 6.4 0 0 0 12 21.2c1.7 0 3.3-.6 4.5-1.8l.9-.9A6.4 6.4 0 0 0 19 13.9v-3a6.4 6.4 0 0 0-1.6-4.6l-.9-.9A6.4 6.4 0 0 0 12 3.2Zm0 3.1a2.2 2.2 0 0 1 2.2 2.2v7.1A2.2 2.2 0 0 1 12 17.8a2.2 2.2 0 0 1-2.2-2.2V8.5A2.2 2.2 0 0 1 12 6.3Z" />
+    </svg>
+  );
+}
+
+function IconToggleOpen() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 6l6 6-6 6" />
+    </svg>
+  );
+}
+
+function IconToggleClose() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M15 6l-6 6 6 6" />
+    </svg>
+  );
+}
+
+function IconDots() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="6" cy="12" r="1.7" />
+      <circle cx="12" cy="12" r="1.7" />
+      <circle cx="18" cy="12" r="1.7" />
+    </svg>
   );
 }
 
@@ -156,7 +209,10 @@ export default function ChatPage() {
   const [input, setInput] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
   const [error, setError] = useState<string>('');
+  const [sessionMenu, setSessionMenu] = useState<SessionMenuState | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   const visibleSessions = useMemo(
     () => sessions.slice(0, MAX_SIDEBAR_SESSIONS),
@@ -166,6 +222,31 @@ export default function ChatPage() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({behavior: 'smooth', block: 'end'});
   }, [messages, status]);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (!sessionMenu) {
+        return;
+      }
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setSessionMenu(null);
+      }
+    }
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setSessionMenu(null);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [sessionMenu]);
 
   useEffect(() => {
     const storedSessions = localStorage.getItem(STORAGE_SESSIONS_KEY);
@@ -309,12 +390,63 @@ export default function ChatPage() {
     setMessages([]);
     setInput('');
     setError('');
+    setSessionMenu(null);
     localStorage.setItem(STORAGE_SESSION_KEY, freshSessionId);
   }
 
   function openSession(sessionId: string) {
     setActiveSessionId(sessionId);
     setError('');
+    setSessionMenu(null);
+  }
+
+  function toggleSessionMenu(sessionId: string) {
+    setSessionMenu((current) =>
+      current?.sessionId === sessionId && current.open
+        ? null
+        : {sessionId, open: true},
+    );
+  }
+
+  function toggleSidebar() {
+    setSidebarOpen((current) => !current);
+    setSessionMenu(null);
+  }
+
+  async function deleteSession(sessionId: string) {
+    const shouldDelete =
+      typeof window === 'undefined'
+        ? true
+        : window.confirm('Delete this chat session and all of its history?');
+    if (!shouldDelete) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/sessions/${sessionId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const payload = await readJson<{detail?: string}>(response);
+        throw new Error(payload.detail || 'Unable to delete the selected session.');
+      }
+
+      setSessions((previous) => {
+        const next = previous.filter((session) => session.session_id !== sessionId);
+        localStorage.setItem(STORAGE_SESSIONS_KEY, JSON.stringify(next));
+        return next;
+      });
+      setSessionMenu(null);
+
+      if (sessionId === activeSessionId) {
+        startNewChat();
+      } else {
+        await refreshSessions();
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to delete the selected session.');
+    }
   }
 
   async function submitMessage(event: React.FormEvent<HTMLFormElement>) {
@@ -409,68 +541,118 @@ export default function ChatPage() {
       title="Chat"
       description="Ask the knowlegebase chatbot questions grounded in your documentation.">
       <main className={styles.page}>
-        <section className={styles.hero}>
-          <div className={styles.heroCopy}>
-            <p className={styles.kicker}>Open-source answers, grounded in your docs</p>
-            <h1>Knowlegebase Chat</h1>
-            <p>
-              Ask a question and the chatbot retrieves relevant markdown from this repository,
-              then answers using a local open-source model.
-            </p>
-          </div>
-          <div className={styles.heroActions}>
-            <button className={styles.primaryButton} onClick={startNewChat} type="button">
-              New chat
-            </button>
-            <Link className={styles.secondaryButton} to="/docs/">
-              Browse docs
-            </Link>
-          </div>
-        </section>
 
         <section className={styles.shell}>
-          <aside className={styles.sidebar}>
-            <div className={styles.sidebarHeader}>
-              <h2>Sessions</h2>
-              <span>{visibleSessions.length} saved</span>
+          <aside
+            className={`${styles.sidebarShell} ${
+              sidebarOpen ? styles.sidebarShellOpen : styles.sidebarShellCollapsed
+            }`}>
+            <div className={styles.sidebarRail}>
+              <button
+                aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
+                className={styles.railButton}
+                onClick={toggleSidebar}
+                title={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
+                type="button">
+                {sidebarOpen ? <IconToggleClose /> : <IconToggleOpen />}
+              </button>
+
+              <div className={styles.railDivider} />
+
+              <button
+                aria-label="New chat"
+                className={styles.railButton}
+                onClick={startNewChat}
+                title="New chat"
+                type="button">
+                <IconNewChat />
+              </button>
+
+              <div className={styles.railSpacer} />
+
+              <button
+                aria-label="Knowlegebase home"
+                className={styles.brandMark}
+                onClick={startNewChat}
+                title="Knowlegebase"
+                type="button">
+                <IconBrand />
+              </button>
             </div>
 
-            <div className={styles.sessionList}>
-              {visibleSessions.length > 0 ? (
-                visibleSessions.map((session) => (
-                  <button
-                    key={session.session_id}
-                    className={`${styles.sessionItem} ${
-                      session.session_id === activeSessionId ? styles.sessionItemActive : ''
-                    }`}
-                    onClick={() => void openSession(session.session_id)}
-                    type="button">
-                    <strong>{session.title || 'New chat'}</strong>
-                    <span>{session.message_count} messages</span>
-                    <small>{formatTime(session.updated_at)}</small>
-                  </button>
-                ))
-              ) : (
-                <div className={styles.emptyState}>
-                  <strong>No saved sessions yet</strong>
-                  <span>Start a conversation and it will appear here.</span>
+            {sidebarOpen ? (
+              <div className={styles.sidebarPanel}>
+                <div className={styles.sidebarHeader}>
+                  <h2>Chats</h2>
+                  <span>{visibleSessions.length} saved</span>
                 </div>
-              )}
-            </div>
 
-            <div className={styles.sidebarFooter}>
-              <p>
-                The backend keeps session history in SQLite, while retrieval runs over the docs in
-                this repository.
-              </p>
-            </div>
+                <div className={styles.sessionList}>
+                  {visibleSessions.length > 0 ? (
+                    visibleSessions.map((session) => (
+                      <div
+                        className={`${styles.sessionRow} ${
+                          session.session_id === activeSessionId ? styles.sessionRowActive : ''
+                        }`}
+                        key={session.session_id}>
+                        <button
+                          className={styles.sessionItem}
+                          title={getSessionDisplayTitle(session.title || 'New chat')}
+                          onClick={() => openSession(session.session_id)}
+                          type="button">
+                          <strong
+                            className={styles.sessionTitle}
+                            title={getSessionDisplayTitle(session.title || 'New chat')}>
+                            {getSessionDisplayTitle(session.title || 'New chat')}
+                          </strong>
+                        </button>
+                        <div
+                          className={styles.sessionMenuWrap}
+                          ref={
+                            sessionMenu?.sessionId === session.session_id ? menuRef : undefined
+                          }>
+                          <button
+                            aria-label={`Session actions for ${session.title || 'New chat'}`}
+                            className={styles.sessionMenuButton}
+                            onClick={() => toggleSessionMenu(session.session_id)}
+                            type="button">
+                            <IconDots />
+                          </button>
+                          {sessionMenu?.sessionId === session.session_id && sessionMenu.open ? (
+                            <div className={styles.sessionMenu} role="menu">
+                              <button
+                                className={styles.sessionMenuItemDanger}
+                                onClick={() => void deleteSession(session.session_id)}
+                                type="button">
+                                Delete
+                              </button>
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className={styles.emptyState}>
+                      <strong>No chats yet</strong>
+                      <span>Start a conversation and your history will appear here.</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className={styles.sidebarFooter}>
+                  <p>
+                    The backend keeps session history in SQLite, while retrieval runs over the docs
+                    in this repository.
+                  </p>
+                </div>
+              </div>
+            ) : null}
           </aside>
 
           <section className={styles.chatPanel}>
             <header className={styles.chatHeader}>
               <div>
                 <h2>{sessionTitle}</h2>
-                <p>Session ID: {activeSessionId}</p>
               </div>
               <div className={styles.statusBadge}>
                 <span className={`${styles.statusDot} ${status === 'loading' ? styles.statusDotLive : ''}`} />
@@ -485,12 +667,21 @@ export default function ChatPage() {
                 messages.map((message) => <MessageBubble key={message.id} message={message} />)
               ) : (
                 <div className={styles.emptyTranscript}>
-                  <h3>Start with a question</h3>
+                  <h3>Ready when you are.</h3>
                   <p>
-                    Try something like “How do I build a chatbot with session history?” or
-                    “What is LangGraph persistence?” and the assistant will ground the answer in
-                    this knowledgebase.
+                    Ask about any note, notebook, or practical guide in the knowledgebase. The
+                    assistant will retrieve relevant context and answer from the docs.
                   </p>
+                  <div className={styles.emptyActions}>
+                    <button className={styles.primaryButton} onClick={startNewChat} type="button">
+                      Ask anything
+                    </button>
+                    {/* <div className={styles.emptyHints}>
+                      <span>Create an answer</span>
+                      <span>Look something up</span>
+                      <span>Write or edit</span>
+                    </div> */}
+                  </div>
                 </div>
               )}
               <div ref={bottomRef} />
@@ -500,16 +691,13 @@ export default function ChatPage() {
               <textarea
                 aria-label="Ask the knowledgebase chatbot"
                 className={styles.input}
-                placeholder="Ask about any note, notebook, or practical guide..."
+                placeholder="Ask anything"
                 rows={3}
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
               />
               <div className={styles.composerFooter}>
-                <span>
-                  Uses local open-source models via Ollama. Set `DOCUSAURUS_CHATBOT_API_URL` to
-                  point the site at your backend.
-                </span>
+                <span>Uses local open-source models via Ollama.</span>
                 <button className={styles.primaryButton} disabled={status === 'loading'} type="submit">
                   {status === 'loading' ? 'Asking...' : 'Send'}
                 </button>

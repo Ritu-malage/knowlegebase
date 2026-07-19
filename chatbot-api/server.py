@@ -25,6 +25,7 @@ EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
 SERVER_HOST = os.getenv("CHATBOT_HOST", "127.0.0.1")
 SERVER_PORT = int(os.getenv("CHATBOT_PORT", "8080"))
 MAX_HISTORY_MESSAGES = int(os.getenv("CHATBOT_HISTORY_MESSAGES", "10"))
+# Total top k chunks to be retrieved
 MAX_SOURCES = int(os.getenv("CHATBOT_SOURCE_COUNT", "4"))
 
 GITHUB_BLOB_BASE = "https://github.com/Ritu-malage/knowlegebase/blob/main"
@@ -354,6 +355,19 @@ class Database:
             )
             conn.commit()
 
+    def delete_session(self, session_id: str) -> bool:
+        with self.connect() as conn:
+            message_result = conn.execute(
+                "DELETE FROM messages WHERE session_id = ?",
+                (session_id,),
+            )
+            session_result = conn.execute(
+                "DELETE FROM sessions WHERE session_id = ?",
+                (session_id,),
+            )
+            conn.commit()
+        return session_result.rowcount > 0 or message_result.rowcount > 0
+
     def touch_session(self, session_id: str) -> None:
         with self.connect() as conn:
             conn.execute(
@@ -613,7 +627,7 @@ class ChatbotHandler(BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", content_type)
         self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+        self.send_header("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
@@ -690,6 +704,19 @@ class ChatbotHandler(BaseHTTPRequestHandler):
             self._json_response(HTTPStatus.OK, result)
         except Exception as exc:
             self._json_response(HTTPStatus.INTERNAL_SERVER_ERROR, {"detail": str(exc)})
+
+    def do_DELETE(self) -> None:  # noqa: N802
+        if not self.path.startswith("/api/sessions/"):
+            self._json_response(HTTPStatus.NOT_FOUND, {"detail": "Not found."})
+            return
+
+        session_id = self.path.split("/api/sessions/", 1)[1].strip("/")
+        deleted = APP.db.delete_session(session_id)
+        if not deleted:
+            self._json_response(HTTPStatus.NOT_FOUND, {"detail": "Session not found."})
+            return
+
+        self._json_response(HTTPStatus.OK, {"ok": True, "session_id": session_id})
 
 
 def main() -> None:
