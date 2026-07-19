@@ -7,3 +7,4 @@ The goal is to organize and document my understanding of Agentic AI concepts, co
 # Table of Contents
 - [Introduction](./md_utils/introduction.md)
 - [Agentic AI Design Patterns](./md_utils/design_patterns/design_patterns.md)
+- [Evaluation Methods](./md_utils/evaluation_methods/evaluation_methods.md)
