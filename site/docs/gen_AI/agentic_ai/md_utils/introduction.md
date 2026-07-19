@@ -123,3 +123,19 @@
   - Information of the available tools
   - RAG
   - Information on how the output should be structured
+
+# Steps to Vibe Coding
+
+- Begin with brainstorming alongside the LLM to clarify ideas
+- Ask clarifying questions to remove ambiguity
+- Finalize on the problem statement
+- Define both functional and non-functional requirements
+- Avoid proceeding blindly; ensure proper understanding
+- Provide the agent with the task once requirements are clear
+- Supply step-by-step instructions for execution
+- Break the task into smaller milestones for easier progress tracking
+
+# Structured Output
+
+- Asking the LLM to generate an output in a specific manner and structure
+- Returns in the JSON format
