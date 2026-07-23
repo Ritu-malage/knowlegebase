@@ -139,3 +139,52 @@
 
 - Asking the LLM to generate an output in a specific manner and structure
 - Returns in the JSON format
+
+# Sandbox
+
+- A sandbox is a temporary, isolated execution environment.
+- It has its own
+    - File system
+    - Memory
+    - CPU
+    - No access to your personal files
+    - Automatic cleanup after execution
+- Think of it as a disposable virtual workspace.
+- It focuses on safe code execution
+- Many sandbox implementations are built using technologies such as Docker, virtual machines, or lightweight containers
+- Example: If the user asks to write a python code to calculate Fibonacci numbers and execute it.
+- Without sandbox
+
+```python
+Agent
+ │
+ ▼
+Runs directly on your laptop
+```
+
+- With sandbox
+
+```python
+Agent
+ │
+ ▼
+Creates Sandbox
+ │
+ ▼
+Runs Python
+ │
+ ▼
+Returns Output
+ │
+ ▼
+Deletes Sandbox
+```
+
+# Sandbox Agents
+
+- Agents execute code inside an isolated, secure environment (sandbox) rather than directly on your local machine or server
+- They do not interact with or modify your existing codebase
+- Purpose: Protect the system while still allowing tasks such as running Python code, analyzing files, or manipulating data
+- Needed because agents might otherwise perform dangerous operations (e.g., deleting files); sandboxing prevents such risks
+- Code runs in an isolated environment with restricted permissions
+- The sandbox environment provides limited resources and permissions to ensure safety
