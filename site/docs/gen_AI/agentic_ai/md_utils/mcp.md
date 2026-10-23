@@ -8,6 +8,7 @@
 - It’s like an USB C port for AI applications i.e. Multiple devices can connected to the same port
 - Just like USB allows your laptop to connect to: Mouse, Keyboard, Hard drive, Phone etc. MCP Allows an AI Application to connect to GitHub, Slack, APIs, Jira etc
 - To know the list of MCPs present/ marketplace of MCP servers you can refer to sites like glama.ai and smithery.ai
+- MCP server has many tools, and these tools can inturn be agents i.e. have an LLM attached to it
 
 # Advantages of MCP
 
