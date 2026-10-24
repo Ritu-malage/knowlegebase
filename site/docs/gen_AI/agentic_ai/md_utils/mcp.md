@@ -71,8 +71,8 @@
         - Here the Client starts the MCP Server as a process
         - The client passes the inputs via standard input and the output from the server is returned as a standard output which will be used as the response given by the MCP server
         - We need to provide the parameters to the MCP server. When its running locally the parameters will describe a local process that you want to spawn (Command thats used to run the server/ process locally)
-        - Example 1: If the MCP server is a python process then the parameters to the server would look like {command: uvx, args :[mcp-server-fetch]}
-        - Example 2: If it’s Java then {command: npx , args:[@playwritr/mcp@latest]}
+        - Example 1: If the MCP server is a python process then the parameters to the server would look like `{command: uvx, args: [mcp-server-fetch]}`
+        - Example 2: If it’s Java then `{command: npx, args: [@playwritr/mcp@latest]}`
         - So `uvx` is used for python servers, `npx` is used for node and Javascript servers and docker for servers packaged as a container
     - Streamable HTTP
         - Used when MCP server is running on the remote server
@@ -81,7 +81,7 @@
         - The client sends out a HTTP request to that endpoint
         - When the MCP server is running on remote machine/cloud we cannot use stdio as the server is not running locally on the machine
         - But if the MCP server is running locally we can communicate with the server using stdio or streamable HTTP
-        - The parameters of MCP server would contain the remote URL. Eg: {url:https://abc.com/mcp, timeout:60}
+        - The parameters of MCP server would contain the remote URL. Eg: `{url: https://abc.com/mcp, timeout: 60}`
 
 # Steps to connect to an MCP Server (Already built) using OpenAI SDK
 
